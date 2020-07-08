@@ -26,7 +26,7 @@ public class BD {
         //poner los datos apropiados
         this.usrBD = "root";
         this.passBD = "n0m3l0";
-        this.urlBD = "jdbc:mysql://127.0.0.1:3306/DBlistas";
+        this.urlBD = "jdbc:mysql://127.0.0.1:3306/ControlAsistencia";
         this.driverClassName = "com.mysql.jdbc.Driver";
     }
    

@@ -5,17 +5,27 @@
  */
 package controlasistencia;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.event.ItemEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.animation.MaterialUIMovement;
 import mdlaf.themes.MaterialLiteTheme;
@@ -27,41 +37,14 @@ import mdlaf.utils.MaterialColors;
  */
 public class HOME extends javax.swing.JFrame {
     
-    InputStream ttf_;
-    Font OswaldLight,PTSans_Bold,PTSans_Bi,PTSans_I,PTSans_Regular;
-        
+    Fonts fts;
+    boolean activeEmpleado=false;
     /**
      * Creates new form HOME
      */
     public HOME() {
-        try {
-            //FONT - ENCABEZADOS
-            this.ttf_= HOME.class.getClass().getResourceAsStream("/fonts/Oswald-Light.ttf");
-            this.OswaldLight = Font.createFont(Font.TRUETYPE_FONT, ttf_);
-            this.OswaldLight = OswaldLight.deriveFont(30f);
-            
-            //FONT - BOTONES
-            this.ttf_= HOME.class.getClass().getResourceAsStream("/fonts/PTSans-Bold.ttf");
-            this.PTSans_Bold = Font.createFont(Font.TRUETYPE_FONT, ttf_);
-            this.PTSans_Bold = this.PTSans_Bold.deriveFont(18f);
-            
-            this.ttf_= HOME.class.getClass().getResourceAsStream("/fonts/PTSans-BoldItalic.ttf");
-            this.PTSans_Bi = Font.createFont(Font.TRUETYPE_FONT, ttf_);
-            
-            this.ttf_= HOME.class.getClass().getResourceAsStream("/fonts/PTSans-Italic.ttf");
-            this.PTSans_I = Font.createFont(Font.TRUETYPE_FONT, ttf_);
-            
-            this.ttf_= HOME.class.getClass().getResourceAsStream("/fonts/PTSans-Regular.ttf");
-            this.PTSans_Regular = Font.createFont(Font.TRUETYPE_FONT, ttf_);
-            this.PTSans_Regular = this.PTSans_Regular.deriveFont(18f);
-            
-            initComponents();
-            
-        } catch (FontFormatException ex) {
-            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        fts = new Fonts();
+        initComponents();
     }
 
     /**
@@ -73,8 +56,9 @@ public class HOME extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rE_status = new javax.swing.ButtonGroup();
+        cE_status = new javax.swing.ButtonGroup();
         Menu = new javax.swing.JPanel();
-        Contenido = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -86,13 +70,139 @@ public class HOME extends javax.swing.JFrame {
         cargar = new javax.swing.JButton();
         consAsis = new javax.swing.JButton();
         consInci = new javax.swing.JButton();
+        Contenido = new javax.swing.JPanel();
+        bienvenido = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        regEmpleado = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        rE_claveE = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        rE_nombre = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        rE_primerA = new javax.swing.JTextField();
+        rE_segundoA = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        rE_fecha = new com.toedter.calendar.JDateChooser();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        rE_nExterior = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        rE_calle = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        rE_colonia = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        rE_estado = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel19 = new javax.swing.JLabel();
+        rE_cPostal = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        rE_nInterior = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        rE_municipio = new javax.swing.JComboBox<>();
+        rE_submit = new javax.swing.JButton();
+        rE_errorM = new javax.swing.JLabel();
+        rE_curp = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        conEmpleado = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        cE1_claveE = new javax.swing.JTextField();
+        cE1_buscar = new javax.swing.JButton();
+        cE1_error = new javax.swing.JLabel();
+        conHorarioE = new javax.swing.JPanel();
+        conHorarioEd = new javax.swing.JTabbedPane();
+        conDatosE = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        cE_clave = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        cE_nombre = new javax.swing.JTextField();
+        cE_primerA = new javax.swing.JTextField();
+        cE_segundoA = new javax.swing.JTextField();
+        cE_curp = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        cE_errorM = new javax.swing.JLabel();
+        cE_fecha = new com.toedter.calendar.JDateChooser();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        cE_calle = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        cE_colonia = new javax.swing.JTextField();
+        cE_cPostal = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        cE_nInterior = new javax.swing.JTextField();
+        cE_nExterior = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        cE_estado = new javax.swing.JComboBox<>();
+        jLabel39 = new javax.swing.JLabel();
+        cE_municipio = new javax.swing.JComboBox<>();
+        jLabel40 = new javax.swing.JLabel();
+        cE_editarDatos = new javax.swing.JButton();
+        cE_activo = new javax.swing.JRadioButton();
+        cE_inactivo = new javax.swing.JRadioButton();
+        cE_eliminarE = new javax.swing.JButton();
+        conHE = new javax.swing.JPanel();
+        regHorario = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        rH_idH = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        rH_eL = new javax.swing.JSpinner();
+        rH_sL = new javax.swing.JSpinner();
+        rH_isL = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        rH_eM = new javax.swing.JSpinner();
+        rH_sM = new javax.swing.JSpinner();
+        rH_isM = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        rH_eW = new javax.swing.JSpinner();
+        rH_sW = new javax.swing.JSpinner();
+        rH_isW = new javax.swing.JRadioButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel49 = new javax.swing.JLabel();
+        rH_eJ = new javax.swing.JSpinner();
+        rH_sJ = new javax.swing.JSpinner();
+        rH_isJ = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        rH_eV = new javax.swing.JSpinner();
+        rH_sV = new javax.swing.JSpinner();
+        rH_isV = new javax.swing.JRadioButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        rH_eS = new javax.swing.JSpinner();
+        rH_sS = new javax.swing.JSpinner();
+        rH_isS = new javax.swing.JRadioButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        rH_eD = new javax.swing.JSpinner();
+        rH_sD = new javax.swing.JSpinner();
+        rH_isD = new javax.swing.JRadioButton();
+        jLabel53 = new javax.swing.JLabel();
+        rH_registrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control de asistencia");
         setAutoRequestFocus(false);
         setBounds(new java.awt.Rectangle(200, 100, 0, 0));
         setIconImages(null);
-        setMaximumSize(new java.awt.Dimension(1026, 684));
         setName("frame"); // NOI18N
         setResizable(false);
 
@@ -100,26 +210,8 @@ public class HOME extends javax.swing.JFrame {
         Menu.setName("Menu"); // NOI18N
         Menu.setPreferredSize(new java.awt.Dimension(1026, 684));
 
-        Contenido.setBackground(new java.awt.Color(233, 209, 153));
-        Contenido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Contenido.setMaximumSize(new java.awt.Dimension(770, 684));
-        Contenido.setMinimumSize(new java.awt.Dimension(770, 684));
-        Contenido.setName("Contenido"); // NOI18N
-        Contenido.setPreferredSize(new java.awt.Dimension(770, 684));
-
-        javax.swing.GroupLayout ContenidoLayout = new javax.swing.GroupLayout(Contenido);
-        Contenido.setLayout(ContenidoLayout);
-        ContenidoLayout.setHorizontalGroup(
-            ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
-        );
-        ContenidoLayout.setVerticalGroup(
-            ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
-        );
-
         jLabel1.setBackground(new java.awt.Color(224, 224, 226));
-        jLabel1.setFont(OswaldLight);
+        jLabel1.setFont(fts.OswaldLight);
         jLabel1.setForeground(new java.awt.Color(77, 175, 115));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText("Empleados  ");
@@ -127,14 +219,14 @@ public class HOME extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(89, 29));
 
         jLabel2.setBackground(new java.awt.Color(224, 224, 226));
-        jLabel2.setFont(OswaldLight);
+        jLabel2.setFont(fts.OswaldLight);
         jLabel2.setForeground(new java.awt.Color(77, 175, 115));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel2.setText("Horarios  ");
         jLabel2.setOpaque(true);
 
         jLabel3.setBackground(new java.awt.Color(224, 224, 226));
-        jLabel3.setFont(OswaldLight);
+        jLabel3.setFont(fts.OswaldLight);
         jLabel3.setForeground(new java.awt.Color(77, 175, 115));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("Asistencias  ");
@@ -143,12 +235,12 @@ public class HOME extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         jLabel3.setPreferredSize(new java.awt.Dimension(89, 29));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(fts.PTSans_Regular);
         jLabel4.setForeground(new java.awt.Color(52, 46, 55));
         jLabel4.setText("Cargar archivo");
 
         regEmp.setBackground(new java.awt.Color(77, 175, 115));
-        regEmp.setFont(PTSans_Bold);
+        regEmp.setFont(fts.PTSans_Bold);
         regEmp.setForeground(new java.awt.Color(224, 224, 226));
         regEmp.addMouseListener(MaterialUIMovement.getMovement( regEmp,new java.awt.Color(52,46,55)));
         regEmp.setText("Registrar");
@@ -162,7 +254,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         consEmp.setBackground(new java.awt.Color(77, 175, 115));
-        consEmp.setFont(PTSans_Bold);
+        consEmp.setFont(fts.PTSans_Bold);
         consEmp.setForeground(new java.awt.Color(224, 224, 226));
         consEmp.addMouseListener(MaterialUIMovement.getMovement( consEmp,new java.awt.Color(52,46,55) ));
         consEmp.setText("Consultar");
@@ -176,7 +268,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         regHor.setBackground(new java.awt.Color(77, 175, 115));
-        regHor.setFont(PTSans_Bold);
+        regHor.setFont(fts.PTSans_Bold);
         regHor.setForeground(new java.awt.Color(224, 224, 226));
         regHor.addMouseListener(MaterialUIMovement.getMovement( regHor,new java.awt.Color(52,46,55) ));
         regHor.setText("Registrar");
@@ -190,7 +282,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         consHor.setBackground(new java.awt.Color(77, 175, 115));
-        consHor.setFont(PTSans_Bold);
+        consHor.setFont(fts.PTSans_Bold);
         consHor.setForeground(new java.awt.Color(224, 224, 226));
         consHor.addMouseListener(MaterialUIMovement.getMovement( consHor,new java.awt.Color(52,46,55)));
         consHor.setText("Consultar");
@@ -204,7 +296,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         cargar.setBackground(new java.awt.Color(52, 46, 55));
-        cargar.setFont(PTSans_Bold);
+        cargar.setFont(fts.PTSans_Bold);
         cargar.setForeground(new java.awt.Color(224, 224, 226));
         cargar.addMouseListener(MaterialUIMovement.getMovement( cargar,new java.awt.Color(119,47,91) ));
         cargar.setText("+");
@@ -218,7 +310,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         consAsis.setBackground(new java.awt.Color(77, 175, 115));
-        consAsis.setFont(PTSans_Bold);
+        consAsis.setFont(fts.PTSans_Bold);
         consAsis.setForeground(new java.awt.Color(52, 46, 55));
         consAsis.addMouseListener(MaterialUIMovement.getMovement( consAsis,new java.awt.Color(224,224,226) ));
         consAsis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asistencia.png"))); // NOI18N
@@ -235,7 +327,7 @@ public class HOME extends javax.swing.JFrame {
         });
 
         consInci.setBackground(new java.awt.Color(77, 175, 115));
-        consInci.setFont(PTSans_Bold);
+        consInci.setFont(fts.PTSans_Bold);
         consInci.setForeground(new java.awt.Color(52, 46, 55));
         consInci.addMouseListener(MaterialUIMovement.getMovement( consInci,new java.awt.Color(224,224,226) ));
         consInci.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inasistencia.png"))); // NOI18N
@@ -251,6 +343,1485 @@ public class HOME extends javax.swing.JFrame {
                 consInciActionPerformed(evt);
             }
         });
+
+        Contenido.setMaximumSize(new java.awt.Dimension(770, 684));
+        Contenido.setMinimumSize(new java.awt.Dimension(770, 684));
+        Contenido.setPreferredSize(new java.awt.Dimension(770, 684));
+        Contenido.setLayout(new java.awt.CardLayout());
+
+        bienvenido.setBackground(new java.awt.Color(233, 209, 153));
+
+        jLabel5.setFont(fts.OswaldLight);
+        jLabel5.setText("BIENVENIDO");
+
+        javax.swing.GroupLayout bienvenidoLayout = new javax.swing.GroupLayout(bienvenido);
+        bienvenido.setLayout(bienvenidoLayout);
+        bienvenidoLayout.setHorizontalGroup(
+            bienvenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bienvenidoLayout.createSequentialGroup()
+                .addContainerGap(388, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(321, 321, 321))
+        );
+        bienvenidoLayout.setVerticalGroup(
+            bienvenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bienvenidoLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel5)
+                .addContainerGap(624, Short.MAX_VALUE))
+        );
+
+        Contenido.add(bienvenido, "inicio");
+
+        regEmpleado.setBackground(new java.awt.Color(233, 209, 153));
+
+        jLabel6.setBackground(new java.awt.Color(215, 124, 101));
+        jLabel6.setFont(fts.OswaldLight);
+        jLabel6.setForeground(new java.awt.Color(234, 239, 211));
+        jLabel6.setText("                        Registro de empleado");
+        jLabel6.setMaximumSize(new java.awt.Dimension(107, 14));
+        jLabel6.setMinimumSize(new java.awt.Dimension(107, 14));
+        jLabel6.setOpaque(true);
+        jLabel6.setPreferredSize(new java.awt.Dimension(107, 14));
+
+        jLabel7.setFont(fts.PTSans_Regular_12);
+        jLabel7.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel7.setText("Clave de empleado");
+
+        rE_claveE.setBackground(new java.awt.Color(233, 209, 153));
+        rE_claveE.setFont(fts.PTSans_Regular_12);
+        rE_claveE.setForeground(new java.awt.Color(52, 46, 55));
+        rE_claveE.setOpaque(false);
+        rE_claveE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rE_claveEActionPerformed(evt);
+            }
+        });
+        rE_claveE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_claveEKeyTyped(evt);
+            }
+        });
+
+        jLabel8.setFont(fts.PTSans_Regular_12);
+        jLabel8.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel8.setText("Nombre(s)");
+
+        rE_nombre.setBackground(new java.awt.Color(233, 209, 153));
+        rE_nombre.setFont(fts.PTSans_Regular_12);
+        rE_nombre.setForeground(new java.awt.Color(52, 46, 55));
+        rE_nombre.setOpaque(false);
+        rE_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_nombreKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setFont(fts.PTSans_Regular_12);
+        jLabel9.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel9.setText("Primer apellido");
+
+        jLabel10.setFont(fts.PTSans_I);
+        jLabel10.setForeground(new java.awt.Color(119, 47, 91));
+        jLabel10.setText("Segundo apellido");
+
+        rE_primerA.setBackground(new java.awt.Color(233, 209, 153));
+        rE_primerA.setFont(fts.PTSans_Regular_12);
+        rE_primerA.setForeground(new java.awt.Color(52, 46, 55));
+        rE_primerA.setOpaque(false);
+        rE_primerA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_primerAKeyTyped(evt);
+            }
+        });
+
+        rE_segundoA.setBackground(new java.awt.Color(233, 209, 153));
+        rE_segundoA.setFont(fts.PTSans_Regular_12);
+        rE_segundoA.setForeground(new java.awt.Color(52, 46, 55));
+        rE_segundoA.setOpaque(false);
+        rE_segundoA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_segundoAKeyTyped(evt);
+            }
+        });
+
+        jLabel11.setFont(fts.PTSans_Regular_12);
+        jLabel11.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel11.setText("Fecha de ingreso");
+
+        jLabel12.setFont(fts.PTSans_Regular_12);
+        jLabel12.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel12.setText("CURP");
+
+        rE_fecha.setForeground(new java.awt.Color(52, 46, 55));
+        rE_fecha.setDateFormatString("dd-MM-yyyy");
+        rE_fecha.setFont(fts.PTSans_Regular_12);
+        rE_fecha.setName("rE_fecha"); // NOI18N
+
+        jLabel13.setFont(fts.OswaldLight);
+        jLabel13.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel13.setText("Domicilio");
+
+        jLabel14.setFont(fts.PTSans_Regular_12);
+        jLabel14.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel14.setText("Calle");
+
+        rE_nExterior.setBackground(new java.awt.Color(233, 209, 153));
+        rE_nExterior.setFont(fts.PTSans_Regular_12);
+        rE_nExterior.setForeground(new java.awt.Color(52, 46, 55));
+        rE_nExterior.setOpaque(false);
+        rE_nExterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rE_nExteriorActionPerformed(evt);
+            }
+        });
+        rE_nExterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_nExteriorKeyTyped(evt);
+            }
+        });
+
+        jLabel15.setFont(fts.PTSans_Regular_12);
+        jLabel15.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel15.setText("Colonia");
+
+        rE_calle.setBackground(new java.awt.Color(233, 209, 153));
+        rE_calle.setFont(fts.PTSans_Regular_12);
+        rE_calle.setForeground(new java.awt.Color(52, 46, 55));
+        rE_calle.setOpaque(false);
+        rE_calle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_calleKeyTyped(evt);
+            }
+        });
+
+        jLabel16.setFont(fts.PTSans_Regular_12);
+        jLabel16.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel16.setText("No. exterior");
+
+        rE_colonia.setBackground(new java.awt.Color(233, 209, 153));
+        rE_colonia.setFont(fts.PTSans_Regular_12);
+        rE_colonia.setForeground(new java.awt.Color(52, 46, 55));
+        rE_colonia.setOpaque(false);
+        rE_colonia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_coloniaKeyTyped(evt);
+            }
+        });
+
+        jLabel17.setFont(fts.PTSans_Regular_12);
+        jLabel17.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel17.setText("Estado");
+
+        rE_estado.setBackground(new java.awt.Color(240, 240, 240));
+        rE_estado.setFont(fts.PTSans_Regular_12);
+        rE_estado.setForeground(new java.awt.Color(52, 46, 55));
+        rE_estado.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.estados));
+        rE_estado.setSelectedIndex(0);
+        rE_estado.setAutoscrolls(true);
+        rE_estado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rE_estadoItemStateChanged(evt);
+            }
+        });
+
+        jLabel18.setFont(fts.PTSans_Regular_12);
+        jLabel18.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel18.setText("Status");
+
+        jRadioButton1.setBackground(new java.awt.Color(233, 209, 153));
+        rE_status.add(jRadioButton1);
+        jRadioButton1.setFont(fts.PTSans_Regular_12);
+        jRadioButton1.setForeground(new java.awt.Color(52, 46, 55));
+        jRadioButton1.setText("Activo");
+        jRadioButton1.setActionCommand("A");
+        jRadioButton1.setOpaque(false);
+
+        jRadioButton2.setBackground(new java.awt.Color(233, 209, 153));
+        rE_status.add(jRadioButton2);
+        jRadioButton2.setFont(fts.PTSans_Regular_12);
+        jRadioButton2.setForeground(new java.awt.Color(52, 46, 55));
+        jRadioButton2.setText("Inactivo");
+        jRadioButton2.setActionCommand("I");
+        jRadioButton2.setOpaque(false);
+
+        jLabel19.setFont(fts.PTSans_Regular_12);
+        jLabel19.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel19.setText("C.Postal");
+
+        rE_cPostal.setBackground(new java.awt.Color(233, 209, 153));
+        rE_cPostal.setFont(fts.PTSans_Regular_12);
+        rE_cPostal.setForeground(new java.awt.Color(52, 46, 55));
+        rE_cPostal.setOpaque(false);
+        rE_cPostal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_cPostalKeyTyped(evt);
+            }
+        });
+
+        jLabel20.setFont(fts.PTSans_I);
+        jLabel20.setForeground(new java.awt.Color(119, 47, 91));
+        jLabel20.setText("*No. interior");
+
+        rE_nInterior.setBackground(new java.awt.Color(233, 209, 153));
+        rE_nInterior.setFont(fts.PTSans_Regular_12);
+        rE_nInterior.setForeground(new java.awt.Color(52, 46, 55));
+        rE_nInterior.setOpaque(false);
+        rE_nInterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_nInteriorKeyTyped(evt);
+            }
+        });
+
+        jLabel21.setFont(fts.PTSans_Regular_12);
+        jLabel21.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel21.setText("Municipio");
+
+        rE_municipio.setBackground(new java.awt.Color(240, 240, 240));
+        rE_municipio.setFont(fts.PTSans_Regular_12);
+        rE_municipio.setForeground(new java.awt.Color(52, 46, 55));
+        rE_municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.aguascalientes));
+        rE_municipio.setSelectedIndex(0);
+        rE_municipio.setAutoscrolls(true);
+
+        rE_submit.setBackground(new java.awt.Color(52, 46, 55));
+        rE_submit.setFont(fts.PTSans_Bold);
+        rE_submit.setForeground(new java.awt.Color(224, 224, 226));
+        rE_submit.addMouseListener(MaterialUIMovement.getMovement( rE_submit,new java.awt.Color(119,47,91) ));
+        rE_submit.setText("Registrar");
+        rE_submit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        rE_submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rE_submitActionPerformed(evt);
+            }
+        });
+
+        rE_errorM.setBackground(new java.awt.Color(119, 47, 91));
+        rE_errorM.setFont(fts.PTSans_Regular_10);
+        rE_errorM.setForeground(new java.awt.Color(52, 46, 55));
+        rE_errorM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/warning1.png"))); // NOI18N
+        rE_errorM.setText("SOY UN ERROR HUEHUE");
+        rE_errorM.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        rE_errorM.setVisible(false);
+
+        rE_curp.setBackground(new java.awt.Color(233, 209, 153));
+        rE_curp.setFont(fts.PTSans_Regular_12);
+        rE_curp.setForeground(new java.awt.Color(52, 46, 55));
+        rE_curp.setOpaque(false);
+        rE_curp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rE_curpKeyTyped(evt);
+            }
+        });
+
+        jLabel22.setFont(fts.PTSans_I);
+        jLabel22.setForeground(new java.awt.Color(119, 47, 91));
+        jLabel22.setText("* - Campo opcional        ");
+
+        javax.swing.GroupLayout regEmpleadoLayout = new javax.swing.GroupLayout(regEmpleado);
+        regEmpleado.setLayout(regEmpleadoLayout);
+        regEmpleadoLayout.setHorizontalGroup(
+            regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7)
+                    .addGroup(regEmpleadoLayout.createSequentialGroup()
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel18)
+                                            .addComponent(jLabel17))
+                                        .addGap(45, 45, 45)
+                                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(138, 138, 138))
+                                            .addComponent(rE_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, regEmpleadoLayout.createSequentialGroup()
+                                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                                    .addComponent(jLabel16)
+                                                    .addGap(18, 18, 18))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regEmpleadoLayout.createSequentialGroup()
+                                                    .addComponent(jLabel15)
+                                                    .addGap(41, 41, 41)))
+                                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                                .addComponent(jLabel14)
+                                                .addGap(53, 53, 53)))
+                                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rE_calle, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rE_colonia, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rE_nExterior, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(34, 34, 34)
+                                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel19)))
+                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addGap(3, 3, 3))
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(35, 35, 35)
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rE_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(rE_nInterior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rE_cPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rE_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(regEmpleadoLayout.createSequentialGroup()
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(rE_curp))
+                            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(rE_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
+                        .addComponent(rE_errorM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(regEmpleadoLayout.createSequentialGroup()
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rE_nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(rE_claveE, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(23, 23, 23)
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rE_primerA, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(59, 59, 59)
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(rE_segundoA, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regEmpleadoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        regEmpleadoLayout.setVerticalGroup(
+            regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(regEmpleadoLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rE_claveE, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rE_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rE_primerA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rE_segundoA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(regEmpleadoLayout.createSequentialGroup()
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(rE_curp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rE_fecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(rE_errorM, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rE_calle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rE_colonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(rE_cPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel16)
+                    .addComponent(rE_nExterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rE_nInterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rE_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rE_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel17))
+                .addGap(18, 18, 18)
+                .addGroup(regEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rE_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2)
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+
+        Contenido.add(regEmpleado, "regEmpleado");
+
+        conEmpleado.setBackground(new java.awt.Color(233, 209, 153));
+
+        jLabel23.setBackground(new java.awt.Color(215, 124, 101));
+        jLabel23.setFont(fts.OswaldLight);
+        jLabel23.setForeground(new java.awt.Color(234, 239, 211));
+        jLabel23.setText("                        Consulta de empleado");
+        jLabel23.setMaximumSize(new java.awt.Dimension(391, 52));
+        jLabel23.setMinimumSize(new java.awt.Dimension(107, 14));
+        jLabel23.setOpaque(true);
+        jLabel23.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel24.setFont(fts.PTSans_Regular_12);
+        jLabel24.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel24.setText("Clave de empleado");
+
+        cE1_claveE.setFont(fts.PTSans_Regular_12);
+        cE1_claveE.setForeground(new java.awt.Color(52, 46, 55));
+        cE1_claveE.setOpaque(false);
+        cE1_claveE.setPreferredSize(new java.awt.Dimension(203, 20));
+        cE1_claveE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE1_claveEActionPerformed(evt);
+            }
+        });
+        cE1_claveE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE1_claveEKeyTyped(evt);
+            }
+        });
+
+        cE1_buscar.setBackground(new java.awt.Color(52, 46, 55));
+        cE1_buscar.setFont(fts.PTSans_Bold);
+        cE1_buscar.setForeground(new java.awt.Color(224, 224, 226));
+        cE1_buscar.setText("Buscar");
+        cE1_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        cE1_buscar.addMouseListener(MaterialUIMovement.getMovement( cE1_buscar,new java.awt.Color(119,47,91) ));
+        cE1_buscar.setPreferredSize(new java.awt.Dimension(165, 33));
+        cE1_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE1_buscarActionPerformed(evt);
+            }
+        });
+
+        cE1_error.setFont(fts.PTSans_Regular_10);
+        cE1_error.setForeground(new java.awt.Color(52, 46, 55));
+        cE1_error.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/warning1.png"))); // NOI18N
+        cE1_error.setText("Soy un error hueheu");
+        cE1_error.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        cE1_error.setVisible(false);
+
+        javax.swing.GroupLayout conEmpleadoLayout = new javax.swing.GroupLayout(conEmpleado);
+        conEmpleado.setLayout(conEmpleadoLayout);
+        conEmpleadoLayout.setHorizontalGroup(
+            conEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conEmpleadoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cE1_error, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(conEmpleadoLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(conEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cE1_claveE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addGroup(conEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE1_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        conEmpleadoLayout.setVerticalGroup(
+            conEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conEmpleadoLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(conEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cE1_claveE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE1_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
+                .addComponent(cE1_error, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(378, Short.MAX_VALUE))
+        );
+
+        Contenido.add(conEmpleado, "conEmpleado");
+
+        conHorarioE.setBackground(new java.awt.Color(233, 209, 153));
+
+        conHorarioEd.setBackground(new java.awt.Color(0, 51, 51));
+        conHorarioEd.setFont(fts.PTSans_Regular_12);
+
+        conDatosE.setBackground(new java.awt.Color(233, 209, 153));
+        conDatosE.setForeground(new java.awt.Color(52, 46, 55));
+        conDatosE.setFont(fts.PTSans_Regular_12);
+
+        jLabel25.setBackground(new java.awt.Color(215, 124, 101));
+        jLabel25.setFont(fts.OswaldLight);
+        jLabel25.setForeground(new java.awt.Color(234, 239, 211));
+        jLabel25.setText("                        Consulta de empleado");
+        jLabel25.setOpaque(true);
+        jLabel25.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel26.setFont(fts.PTSans_Regular_12);
+        jLabel26.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel26.setText("Clave de empleado");
+
+        cE_clave.setBackground(new java.awt.Color(233, 209, 153));
+        cE_clave.setFont(fts.PTSans_Regular_12);
+        cE_clave.setForeground(new java.awt.Color(52, 46, 55));
+        cE_clave.setOpaque(false);
+        cE_clave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE_claveActionPerformed(evt);
+            }
+        });
+        cE_clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_claveKeyTyped(evt);
+            }
+        });
+
+        jLabel27.setFont(fts.PTSans_Regular_12);
+        jLabel27.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel27.setText("Nombre(s)");
+
+        jLabel28.setFont(fts.PTSans_Regular_12);
+        jLabel28.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel28.setText("Primer apellido");
+
+        jLabel29.setFont(fts.PTSans_I);
+        jLabel29.setForeground(new java.awt.Color(119, 47, 91));
+        jLabel29.setText("Segundo apellido");
+
+        cE_nombre.setBackground(new java.awt.Color(233, 209, 153));
+        cE_nombre.setFont(fts.PTSans_Regular_12);
+        cE_nombre.setForeground(new java.awt.Color(52, 46, 55));
+        cE_nombre.setOpaque(false);
+        cE_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_nombreKeyTyped(evt);
+            }
+        });
+
+        cE_primerA.setBackground(new java.awt.Color(233, 209, 153));
+        cE_primerA.setFont(fts.PTSans_Regular_12);
+        cE_primerA.setForeground(new java.awt.Color(52, 46, 55));
+        cE_primerA.setOpaque(false);
+        cE_primerA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_primerAKeyTyped(evt);
+            }
+        });
+
+        cE_segundoA.setBackground(new java.awt.Color(233, 209, 153));
+        cE_segundoA.setFont(fts.PTSans_Regular_12);
+        cE_segundoA.setForeground(new java.awt.Color(52, 46, 55));
+        cE_segundoA.setOpaque(false);
+        cE_segundoA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_segundoAKeyTyped(evt);
+            }
+        });
+
+        cE_curp.setBackground(new java.awt.Color(233, 209, 153));
+        cE_curp.setFont(fts.PTSans_Regular_12);
+        cE_curp.setForeground(new java.awt.Color(52, 46, 55));
+        cE_curp.setOpaque(false);
+        cE_curp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_curpKeyTyped(evt);
+            }
+        });
+
+        jLabel30.setFont(fts.PTSans_Regular_12);
+        jLabel30.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel30.setText("CURP");
+
+        cE_errorM.setBackground(new java.awt.Color(119, 47, 91));
+        cE_errorM.setFont(fts.PTSans_Regular_10);
+        cE_errorM.setForeground(new java.awt.Color(52, 46, 55));
+        cE_errorM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/warning1.png"))); // NOI18N
+        cE_errorM.setText("SOY UN ERROR HUEHUE");
+        cE_errorM.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        cE_fecha.setForeground(new java.awt.Color(52, 46, 55));
+        cE_fecha.setDateFormatString("dd-MM-yyyy");
+        cE_fecha.setFont(fts.PTSans_Regular_12);
+        cE_fecha.setName("rE_fecha"); // NOI18N
+
+        jLabel31.setFont(fts.PTSans_Regular_12);
+        jLabel31.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel31.setText("Fecha de ingreso");
+
+        jLabel32.setFont(fts.OswaldLight);
+        jLabel32.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel32.setText("Domicilio");
+
+        jLabel33.setFont(fts.PTSans_Regular_12);
+        jLabel33.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel33.setText("Calle");
+
+        cE_calle.setBackground(new java.awt.Color(233, 209, 153));
+        cE_calle.setFont(fts.PTSans_Regular_12);
+        cE_calle.setForeground(new java.awt.Color(52, 46, 55));
+        cE_calle.setOpaque(false);
+        cE_calle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_calleKeyTyped(evt);
+            }
+        });
+
+        jLabel34.setFont(fts.PTSans_Regular_12);
+        jLabel34.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel34.setText("Colonia");
+
+        cE_colonia.setBackground(new java.awt.Color(233, 209, 153));
+        cE_colonia.setFont(fts.PTSans_Regular_12);
+        cE_colonia.setForeground(new java.awt.Color(52, 46, 55));
+        cE_colonia.setOpaque(false);
+        cE_colonia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_coloniaKeyTyped(evt);
+            }
+        });
+
+        cE_cPostal.setBackground(new java.awt.Color(233, 209, 153));
+        cE_cPostal.setFont(fts.PTSans_Regular_12);
+        cE_cPostal.setForeground(new java.awt.Color(52, 46, 55));
+        cE_cPostal.setOpaque(false);
+        cE_cPostal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_cPostalKeyTyped(evt);
+            }
+        });
+
+        jLabel35.setFont(fts.PTSans_Regular_12);
+        jLabel35.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel35.setText("C.Postal");
+
+        jLabel36.setFont(fts.PTSans_I);
+        jLabel36.setForeground(new java.awt.Color(119, 47, 91));
+        jLabel36.setText("*No. interior");
+
+        cE_nInterior.setBackground(new java.awt.Color(233, 209, 153));
+        cE_nInterior.setFont(fts.PTSans_Regular_12);
+        cE_nInterior.setForeground(new java.awt.Color(52, 46, 55));
+        cE_nInterior.setOpaque(false);
+        cE_nInterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_nInteriorKeyTyped(evt);
+            }
+        });
+
+        cE_nExterior.setBackground(new java.awt.Color(233, 209, 153));
+        cE_nExterior.setFont(fts.PTSans_Regular_12);
+        cE_nExterior.setForeground(new java.awt.Color(52, 46, 55));
+        cE_nExterior.setOpaque(false);
+        cE_nExterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE_nExteriorActionPerformed(evt);
+            }
+        });
+        cE_nExterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cE_nExteriorKeyTyped(evt);
+            }
+        });
+
+        jLabel37.setFont(fts.PTSans_Regular_12);
+        jLabel37.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel37.setText("No. exterior");
+
+        jLabel38.setFont(fts.PTSans_Regular_12);
+        jLabel38.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel38.setText("Estado");
+
+        cE_estado.setBackground(new java.awt.Color(240, 240, 240));
+        cE_estado.setFont(fts.PTSans_Regular_12);
+        cE_estado.setForeground(new java.awt.Color(52, 46, 55));
+        cE_estado.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.estados));
+        cE_estado.setSelectedIndex(0);
+        cE_estado.setAutoscrolls(true);
+        cE_estado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cE_estadoItemStateChanged(evt);
+            }
+        });
+
+        jLabel39.setFont(fts.PTSans_Regular_12);
+        jLabel39.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel39.setText("Municipio");
+
+        cE_municipio.setBackground(new java.awt.Color(240, 240, 240));
+        cE_municipio.setFont(fts.PTSans_Regular_12);
+        cE_municipio.setForeground(new java.awt.Color(52, 46, 55));
+        cE_municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.aguascalientes));
+        cE_municipio.setSelectedIndex(0);
+        cE_municipio.setAutoscrolls(true);
+
+        jLabel40.setFont(fts.PTSans_Regular_12);
+        jLabel40.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel40.setText("Status");
+
+        cE_editarDatos.setFont(fts.PTSans_Bold);
+        cE_editarDatos.setForeground(new java.awt.Color(52, 46, 55));
+        cE_editarDatos.setText("Editar");
+        cE_editarDatos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        cE_editarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE_editarDatosActionPerformed(evt);
+            }
+        });
+
+        cE_activo.setBackground(new java.awt.Color(233, 209, 153));
+        cE_status.add(cE_activo);
+        cE_activo.setFont(fts.PTSans_Regular_12);
+        cE_activo.setForeground(new java.awt.Color(52, 46, 55));
+        cE_activo.setText("Activo");
+        cE_activo.setActionCommand("A");
+        cE_activo.setOpaque(false);
+
+        cE_inactivo.setBackground(new java.awt.Color(233, 209, 153));
+        cE_status.add(cE_inactivo);
+        cE_inactivo.setFont(fts.PTSans_Regular_12);
+        cE_inactivo.setForeground(new java.awt.Color(52, 46, 55));
+        cE_inactivo.setText("Inactivo");
+        cE_inactivo.setActionCommand("I");
+        cE_inactivo.setOpaque(false);
+
+        cE_eliminarE.setBackground(new java.awt.Color(52, 46, 55));
+        cE_eliminarE.setFont(fts.PTSans_Bold);
+        cE_eliminarE.setForeground(new java.awt.Color(224, 224, 226));
+        cE_eliminarE.setText("Eliminar");
+        cE_eliminarE.addMouseListener(MaterialUIMovement.getMovement( cE_eliminarE,new java.awt.Color(119,47,91) ));
+        cE_eliminarE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        cE_eliminarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cE_eliminarEActionPerformed(evt);
+            }
+        });
+
+        rE_errorM.setVisible(false);
+
+        javax.swing.GroupLayout conDatosELayout = new javax.swing.GroupLayout(conDatosE);
+        conDatosE.setLayout(conDatosELayout);
+        conDatosELayout.setHorizontalGroup(
+            conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conDatosELayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conDatosELayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(conDatosELayout.createSequentialGroup()
+                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(conDatosELayout.createSequentialGroup()
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(conDatosELayout.createSequentialGroup()
+                                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel40)
+                                                    .addComponent(jLabel38))
+                                                .addGap(45, 45, 45)
+                                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(cE_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                            .addComponent(cE_activo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(cE_inactivo, javax.swing.GroupLayout.Alignment.LEADING))
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(cE_editarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, conDatosELayout.createSequentialGroup()
+                                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(conDatosELayout.createSequentialGroup()
+                                                            .addComponent(jLabel37)
+                                                            .addGap(18, 18, 18))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conDatosELayout.createSequentialGroup()
+                                                            .addComponent(jLabel34)
+                                                            .addGap(41, 41, 41)))
+                                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                                        .addComponent(jLabel33)
+                                                        .addGap(53, 53, 53)))
+                                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(cE_calle, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(cE_colonia, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(cE_nExterior, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel39)
+                                            .addComponent(jLabel35)))
+                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                        .addComponent(jLabel36)
+                                        .addGap(3, 3, 3))
+                                    .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(35, 35, 35)
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cE_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cE_nInterior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cE_cPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cE_eliminarE, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(conDatosELayout.createSequentialGroup()
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                        .addComponent(jLabel30)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cE_curp))
+                                    .addGroup(conDatosELayout.createSequentialGroup()
+                                        .addComponent(jLabel31)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cE_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(47, 47, 47)
+                                .addComponent(cE_errorM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(conDatosELayout.createSequentialGroup()
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cE_nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(23, 23, 23)
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cE_primerA, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel28))
+                                .addGap(59, 59, 59)
+                                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel29)
+                                    .addComponent(cE_segundoA, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(conDatosELayout.createSequentialGroup()
+                        .addComponent(cE_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        conDatosELayout.setVerticalGroup(
+            conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conDatosELayout.createSequentialGroup()
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cE_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cE_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE_primerA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE_segundoA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conDatosELayout.createSequentialGroup()
+                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30)
+                            .addComponent(cE_curp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cE_fecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(cE_errorM, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cE_calle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel33))
+                .addGap(18, 18, 18)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cE_colonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35)
+                    .addComponent(cE_cPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34))
+                .addGap(18, 18, 18)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37)
+                    .addComponent(cE_nExterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE_nInterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cE_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cE_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel38))
+                .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conDatosELayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cE_activo)
+                            .addComponent(jLabel40))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cE_inactivo))
+                    .addGroup(conDatosELayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cE_editarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cE_eliminarE, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(264, 264, 264))
+        );
+
+        conHorarioEd.addTab("Datos", conDatosE);
+
+        conHE.setBackground(new java.awt.Color(233, 209, 153));
+        conHE.setForeground(new java.awt.Color(52, 46, 55));
+        conHE.setFont(fts.PTSans_Regular_12);
+
+        javax.swing.GroupLayout conHELayout = new javax.swing.GroupLayout(conHE);
+        conHE.setLayout(conHELayout);
+        conHELayout.setHorizontalGroup(
+            conHELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 765, Short.MAX_VALUE)
+        );
+        conHELayout.setVerticalGroup(
+            conHELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 755, Short.MAX_VALUE)
+        );
+
+        conHorarioEd.addTab("Horario", conHE);
+
+        javax.swing.GroupLayout conHorarioELayout = new javax.swing.GroupLayout(conHorarioE);
+        conHorarioE.setLayout(conHorarioELayout);
+        conHorarioELayout.setHorizontalGroup(
+            conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+            .addGroup(conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(conHorarioELayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(conHorarioEd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        conHorarioELayout.setVerticalGroup(
+            conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 783, Short.MAX_VALUE)
+            .addGroup(conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(conHorarioELayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(conHorarioEd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        conHorarioEd.getAccessibleContext().setAccessibleName("conHorarioEd");
+
+        Contenido.add(conHorarioE, "conHorarioE");
+
+        regHorario.setBackground(new java.awt.Color(224, 224, 226));
+
+        jLabel41.setBackground(new java.awt.Color(209, 87, 129));
+        jLabel41.setFont(fts.OswaldLight);
+        jLabel41.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel41.setText("                        Registro de horario");
+        jLabel41.setOpaque(true);
+        jLabel41.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel42.setFont(fts.PTSans_Regular_12);
+        jLabel42.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel42.setText("ID Horario");
+
+        rH_idH.setFont(fts.PTSans_Regular_12);
+        rH_idH.setForeground(new java.awt.Color(52, 46, 55));
+        rH_idH.setOpaque(false);
+        rH_idH.setPreferredSize(new java.awt.Dimension(203, 20));
+        rH_idH.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rH_idHKeyTyped(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(209, 87, 129));
+        jSeparator1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel43.setFont(fts.PTSans_Regular);
+        jLabel43.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("Día");
+
+        jLabel44.setFont(fts.PTSans_Regular);
+        jLabel44.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Hora de entrada");
+
+        jLabel45.setFont(fts.PTSans_Regular);
+        jLabel45.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setText("Hora de salida");
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(800, 40));
+        jPanel1.setMinimumSize(new java.awt.Dimension(716, 30));
+        jPanel1.setName("1"); // NOI18N
+
+        jLabel46.setFont(fts.PTSans_Regular_12);
+        jLabel46.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel46.setText("Lunes");
+
+        rH_eL.setFont(fts.PTSans_Regular_12);
+        rH_eL.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eL.setEditor(new javax.swing.JSpinner.DateEditor(rH_eL, "HH:mm"));
+        Extras.setTransparent(rH_eL.getEditor().getComponent(0));
+
+        rH_sL.setFont(fts.PTSans_Regular_12);
+        rH_sL.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sL.setEditor(new javax.swing.JSpinner.DateEditor(rH_sL, "HH:mm"));
+        Extras.setTransparent(rH_sL.getEditor().getComponent(0));
+
+        rH_isL.setFont(fts.PTSans_Regular_12);
+        rH_isL.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isL.setSelected(true);
+        rH_isL.setText("Si");
+        rH_isL.setOpaque(false);
+        rH_isL.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isLItemStateChanged(evt);
+            }
+        });
+        rH_isL.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rH_isLStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isL)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_sL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rH_isL)))
+            .addComponent(rH_eL)
+            .addComponent(rH_sL)
+        );
+
+        jPanel2.setName("2"); // NOI18N
+
+        jLabel47.setFont(fts.PTSans_Regular_12);
+        jLabel47.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel47.setText("Martes");
+
+        rH_eM.setFont(fts.PTSans_Regular_12);
+        rH_eM.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eM.setEditor(new javax.swing.JSpinner.DateEditor(rH_eM, "HH:mm"));
+        Extras.setTransparent(rH_eM.getEditor().getComponent(0));
+
+        rH_sM.setFont(fts.PTSans_Regular_12);
+        rH_sM.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sM.setEditor(new javax.swing.JSpinner.DateEditor(rH_sM, "HH:mm"));
+        Extras.setTransparent(rH_sM.getEditor().getComponent(0));
+
+        rH_isM.setFont(fts.PTSans_Regular_12);
+        rH_isM.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isM.setText("Si");
+        rH_isM.setOpaque(false);
+        rH_isM.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isMItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eM, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(rH_sM, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isM))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sM)
+                .addComponent(rH_eM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel3.setName("3"); // NOI18N
+
+        jLabel48.setFont(fts.PTSans_Regular_12);
+        jLabel48.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel48.setText("Miercoles");
+
+        rH_eW.setFont(fts.PTSans_Regular_12);
+        rH_eW.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eW.setEditor(new javax.swing.JSpinner.DateEditor(rH_eW, "HH:mm"));
+        Extras.setTransparent(rH_eW.getEditor().getComponent(0));
+
+        rH_sW.setFont(fts.PTSans_Regular_12);
+        rH_sW.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sW.setEditor(new javax.swing.JSpinner.DateEditor(rH_sW, "HH:mm"));
+        Extras.setTransparent(rH_sW.getEditor().getComponent(0));
+
+        rH_isW.setFont(fts.PTSans_Regular_12);
+        rH_isW.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isW.setText("Si");
+        rH_isW.setOpaque(false);
+        rH_isW.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isWItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(rH_isW)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(rH_sW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isW))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sW)
+                .addComponent(rH_eW, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel4.setName("4"); // NOI18N
+
+        jLabel49.setFont(fts.PTSans_Regular_12);
+        jLabel49.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel49.setText("Jueves");
+
+        rH_eJ.setFont(fts.PTSans_Regular_12);
+        rH_eJ.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eJ.setEditor(new javax.swing.JSpinner.DateEditor(rH_eJ, "HH:mm"));
+        Extras.setTransparent(rH_eJ.getEditor().getComponent(0));
+
+        rH_sJ.setFont(fts.PTSans_Regular_12);
+        rH_sJ.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sJ.setEditor(new javax.swing.JSpinner.DateEditor(rH_sJ, "HH:mm"));
+        Extras.setTransparent(rH_sJ.getEditor().getComponent(0));
+
+        rH_isJ.setFont(fts.PTSans_Regular_12);
+        rH_isJ.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isJ.setText("Si");
+        rH_isJ.setOpaque(false);
+        rH_isJ.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isJItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isJ)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eJ, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sJ, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isJ))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sJ)
+                .addComponent(rH_eJ, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel5.setName("5"); // NOI18N
+
+        jLabel50.setFont(fts.PTSans_Regular_12);
+        jLabel50.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel50.setText("Viernes");
+
+        rH_eV.setFont(fts.PTSans_Regular_12);
+        rH_eV.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eV.setEditor(new javax.swing.JSpinner.DateEditor(rH_eV, "HH:mm"));
+        Extras.setTransparent(rH_eV.getEditor().getComponent(0));
+
+        rH_sV.setFont(fts.PTSans_Regular_12);
+        rH_sV.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sV.setEditor(new javax.swing.JSpinner.DateEditor(rH_sV, "HH:mm"));
+        Extras.setTransparent(rH_sV.getEditor().getComponent(0));
+
+        rH_isV.setFont(fts.PTSans_Regular_12);
+        rH_isV.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isV.setText("Si");
+        rH_isV.setOpaque(false);
+        rH_isV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isVItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isV)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eV, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sV, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isV))
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sV)
+                .addComponent(rH_eV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel6.setName("6"); // NOI18N
+
+        jLabel51.setFont(fts.PTSans_Regular_12);
+        jLabel51.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel51.setText("Sábado");
+
+        rH_eS.setFont(fts.PTSans_Regular_12);
+        rH_eS.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eS.setEditor(new javax.swing.JSpinner.DateEditor(rH_eS, "HH:mm"));
+        Extras.setTransparent(rH_eS.getEditor().getComponent(0));
+
+        rH_sS.setFont(fts.PTSans_Regular_12);
+        rH_sS.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sS.setEditor(new javax.swing.JSpinner.DateEditor(rH_sS, "HH:mm"));
+        Extras.setTransparent(rH_sS.getEditor().getComponent(0));
+
+        rH_isS.setFont(fts.PTSans_Regular_12);
+        rH_isS.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isS.setText("Si");
+        rH_isS.setOpaque(false);
+        rH_isS.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isSItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eS, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sS, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isS))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sS)
+                .addComponent(rH_eS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel7.setName("7"); // NOI18N
+
+        jLabel52.setFont(fts.PTSans_Regular_12);
+        jLabel52.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel52.setText("Domingo");
+
+        rH_eD.setFont(fts.PTSans_Regular_12);
+        rH_eD.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eD.setEditor(new javax.swing.JSpinner.DateEditor(rH_eD, "HH:mm"));
+        Extras.setTransparent(rH_eD.getEditor().getComponent(0));
+
+        rH_sD.setFont(fts.PTSans_Regular_12);
+        rH_sD.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sD.setEditor(new javax.swing.JSpinner.DateEditor(rH_sD, "HH:mm"));
+        Extras.setTransparent(rH_sD.getEditor().getComponent(0));
+
+        rH_isD.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isD.setText("Si");
+        rH_isD.setOpaque(false);
+        rH_isD.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isDItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eD, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(rH_sD, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isD))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sD)
+                .addComponent(rH_eD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLabel53.setFont(fts.PTSans_Regular);
+        jLabel53.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel53.setText("Es laboral");
+
+        rH_registrar.setFont(fts.PTSans_Bold);
+        rH_registrar.setForeground(new java.awt.Color(52, 46, 55));
+        rH_registrar.setText("Registrar");
+        rH_registrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 87, 129), 2));
+        rH_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rH_registrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout regHorarioLayout = new javax.swing.GroupLayout(regHorario);
+        regHorario.setLayout(regHorarioLayout);
+        regHorarioLayout.setHorizontalGroup(
+            regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regHorarioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(regHorarioLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel42)
+                    .addGroup(regHorarioLayout.createSequentialGroup()
+                        .addGroup(regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(regHorarioLayout.createSequentialGroup()
+                                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rH_idH, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regHorarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rH_registrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+        regHorarioLayout.setVerticalGroup(
+            regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(regHorarioLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rH_idH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(regHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel43)
+                    .addComponent(jLabel44)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel53))
+                .addGap(29, 29, 29)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(rH_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+
+        jPanel1.getAccessibleContext().setAccessibleName("lunes");
+        jPanel2.getAccessibleContext().setAccessibleName("martes");
+        jPanel3.getAccessibleContext().setAccessibleName("miercoles");
+        jPanel4.getAccessibleContext().setAccessibleName("jueves");
+        jPanel5.getAccessibleContext().setAccessibleName("viernes");
+        jPanel6.getAccessibleContext().setAccessibleName("sabado");
+        jPanel7.getAccessibleContext().setAccessibleName("domingo");
+
+        Contenido.add(regHorario, "regHorario");
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
@@ -278,9 +1849,6 @@ public class HOME extends javax.swing.JFrame {
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
-                .addComponent(Contenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(MenuLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -304,9 +1872,10 @@ public class HOME extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consInci, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addComponent(Contenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        Contenido.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,19 +1899,30 @@ public class HOME extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void regEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regEmpActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        cl.show(Contenido,"regEmpleado");
+        setTitle("Registrar empleado");
     }//GEN-LAST:event_regEmpActionPerformed
 
     private void consEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consEmpActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        if(activeEmpleado){
+            
+        }else{
+            cl.show(Contenido,"conEmpleado");
+        } 
+        setTitle("Consultar empleado");
     }//GEN-LAST:event_consEmpActionPerformed
 
     private void regHorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regHorActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        cl.show(Contenido,"regHorario");
+        enableSelectedDays(regHorario);
+        setTitle("Registrar horario");
     }//GEN-LAST:event_regHorActionPerformed
 
     private void consHorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consHorActionPerformed
-        // TODO add your handling code here:
+        System.out.println(Extras.getHora(rH_eD));
     }//GEN-LAST:event_consHorActionPerformed
 
     private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
@@ -357,41 +1937,748 @@ public class HOME extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_consInciActionPerformed
 
+    private void rE_claveEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rE_claveEActionPerformed
+        
+    }//GEN-LAST:event_rE_claveEActionPerformed
+
+    private void rE_claveEKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_claveEKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c>'9'||rE_claveE.getText().length() > 8){
+            evt.consume();
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("La clave de empleado debe contener nueve dígitos numéricos");
+        }else{
+            rE_errorM.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_rE_claveEKeyTyped
+
+    private void rE_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_nombreKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || rE_nombre.getText().length() > 34){
+            evt.consume();
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            rE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_rE_nombreKeyTyped
+
+    private void rE_primerAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_primerAKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || rE_primerA.getText().length() > 34){
+            evt.consume();
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            rE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_rE_primerAKeyTyped
+
+    private void rE_segundoAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_segundoAKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || rE_segundoA.getText().length() > 34){
+            evt.consume();
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            rE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_rE_segundoAKeyTyped
+
+    private void rE_curpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_curpKeyTyped
+        String cadena = rE_curp.getText();
+        boolean completa = false;
+        char c = evt.getKeyChar();
+        
+        if(cadena.length()> 17 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z'){
+            evt.consume();
+        }else{
+            cadena += evt.getKeyChar();
+        }
+        
+        if(cadena.length()==18){
+            completa=true;
+        }
+        
+        if(completa){
+            cadena = cadena.toUpperCase();
+            boolean isVal = Extras.validarCURP(cadena);
+            if(isVal){
+                rE_errorM.setVisible(false); 
+            }else{
+                rE_errorM.setVisible(true);
+                rE_errorM.setText("La CURP ingresada no tiene un formato válido");
+            }
+        }else{
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("La CURP está incompleta");
+        }
+        
+    }//GEN-LAST:event_rE_curpKeyTyped
+
+    private void rE_cPostalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_cPostalKeyTyped
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'||rE_cPostal.getText().length() > 4){
+            evt.consume();
+            rE_errorM.setVisible(true);
+            rE_errorM.setText("El cógigo postal debe tener cinco dígitos");
+        }else{
+            rE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_rE_cPostalKeyTyped
+
+    private void estadoItemStateChanged(JComboBox municipio,int item){
+        switch(item){
+               case 1: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.aguascalientes)); break;
+               case 2: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.bajaCalifornia)); break;
+               case 3: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.bajaCaliforniaSur)); break;
+               case 4: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.campeche)); break;
+               case 5: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.coahuila)); break;
+               case 6: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.colima)); break;
+               case 7: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.chiapas)); break;
+               case 8: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.chihuahua)); break;
+               case 9: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.cdmx)); break;
+               case 10: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.durango)); break;
+               case 11: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.guanajuato)); break;
+               case 12: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.guerrero)); break;
+               case 13: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.hidalgo)); break;
+               case 14: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.jalisco)); break;
+               case 15: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.mexico)); break;
+               case 16: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.michoacan)); break;
+               case 17: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.morelos)); break;
+               case 18: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.nayarit)); break;
+               case 19: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.nuevoLeon)); break;
+               case 20: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.oaxaca)); break;
+               case 21: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.puebla)); break;
+               case 22: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.queretaro)); break;
+               case 23: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.quintanaRoo)); break;
+               case 24: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.sanLuis)); break;
+               case 25: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.sinaloa)); break;
+               case 26: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.sonora)); break;
+               case 27: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.tabasco)); break;
+               case 28: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.tamaulipas)); break;
+               case 29: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.tlaxcala)); break;
+               case 30: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.veracruz)); break;
+               case 31: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.yucatan)); break;
+               case 32: municipio.setModel(new javax.swing.DefaultComboBoxModel<>(Estados.zacatecas)); break;
+           }
+    }
+    private void rE_estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rE_estadoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+           int item = rE_estado.getSelectedIndex() + 1;
+            estadoItemStateChanged(rE_municipio, item);
+       }
+    }//GEN-LAST:event_rE_estadoItemStateChanged
+
+    private void rE_nExteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rE_nExteriorActionPerformed
+
+    }//GEN-LAST:event_rE_nExteriorActionPerformed
+
+    private void rE_nExteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_nExteriorKeyTyped
+        char c = evt.getKeyChar();
+        
+        if((rE_nExterior.getText().length() > 3 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z')&& c != '-'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_rE_nExteriorKeyTyped
+
+    private void rE_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rE_submitActionPerformed
+        int ok = 0;
+        String _error = "";
+        String fecha = ((JTextField) rE_fecha.getDateEditor().getUiComponent()).getText();
+        
+        if(!Extras.validarNumeros(rE_cPostal.getText(),5)){
+            _error = "        Ingrese un código postal válido.    ";
+        }else{
+            ok++;
+        }
+        if(!Extras.validarFormatoFecha(fecha)){
+            _error = "        ' "+fecha+"'" +" no es una fecha válida.    ";
+        }else{
+            ok++;
+            fecha = Extras.flipDate(fecha);
+        }
+        if(!Extras.validarCURP(rE_curp.getText())){
+            _error = "        La CURP ingresada no es válida.    ";
+        }else{
+            ok++;
+        }
+        if(Extras.isNull(rE_nombre.getText()) || Extras.isNull(rE_primerA.getText()) || Extras.isNull(rE_calle.getText()) || Extras.isNull(rE_colonia.getText()) || Extras.isNull(rE_nExterior.getText())){
+            _error = "        Asegurese de no dejar campos obligatorios vacíos.    "; 
+        }else{
+            ok++;
+        }
+        if(!Extras.validarNumeros(rE_claveE.getText(),9)){
+            _error = "        Ingrese una una entrada válida para clave de empleado.    "; 
+        }else{
+            ok++;
+        }
+        if(ok == 5){
+            try {
+                QuerysBD consulta = new QuerysBD();
+                _error = consulta.registrarEmpleado(rE_claveE.getText(),rE_nombre.getText(),rE_primerA.getText(),rE_segundoA.getText(),
+                                                    rE_curp.getText(),fecha,rE_calle.getText(),rE_colonia.getText(),
+                                                    rE_estado.getSelectedIndex()+1,rE_municipio.getSelectedIndex()+1,rE_nExterior.getText(),rE_nInterior.getText(),
+                                                    rE_cPostal.getText(),rE_status.getSelection().getActionCommand().charAt(0));
+                if(_error.equals("0")){
+                    JOptionPane optionPane = new JOptionPane();
+                    borrarDatosForm(regEmpleado.getComponents());
+                    optionPane.showMessageDialog(null,"        Se ha registrado  "+rE_claveE.getText()+"  correctamente        ", "    Finalizado", JOptionPane.INFORMATION_MESSAGE);
+                    //borrarDatosForm(regEmpleado.getComponents());
+                }else{
+                    JOptionPane optionPane = new JOptionPane();
+                    optionPane.showMessageDialog(null,"        Ya existe un empleado con clave "+rE_claveE.getText()+"        "
+                            + "\n        Intente con una clave diferente        ", "    Finalizado", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane optionPane = new JOptionPane();
+	    optionPane.showMessageDialog(null,_error, "    ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_rE_submitActionPerformed
+
+    private void rE_calleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_calleKeyTyped
+        if(rE_calle.getText().length() > 34){
+            evt.consume();
+        }
+    }//GEN-LAST:event_rE_calleKeyTyped
+
+    private void rE_coloniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_coloniaKeyTyped
+        if(rE_colonia.getText().length() > 34){
+            evt.consume();
+        }
+    }//GEN-LAST:event_rE_coloniaKeyTyped
+
+    private void rE_nInteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rE_nInteriorKeyTyped
+        char c = evt.getKeyChar();
+        if((rE_nInterior.getText().length() > 3 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z')&& c != '-'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_rE_nInteriorKeyTyped
+
+    private void cE1_claveEKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE1_claveEKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c>'9'||cE1_claveE.getText().length() > 8){
+            evt.consume();
+            cE1_error.setVisible(true);
+            cE1_error.setText("La clave de empleado debe contener nueve dígitos numéricos");
+        }else{
+            cE1_error.setVisible(false);
+        }
+    }//GEN-LAST:event_cE1_claveEKeyTyped
+
+    private void cE1_claveEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE1_claveEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cE1_claveEActionPerformed
+    
+    private void cE1_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE1_buscarActionPerformed
+        String horario = "";
+        if(Extras.validarNumeros(cE1_claveE.getText(), 9)){
+            try {
+                cE1_error.setVisible(false);
+                QuerysBD consulta = new QuerysBD();
+                ResultSet rs = consulta.consultaEmpleado(cE1_claveE.getText());
+                if(rs.next()){
+                    horario = rs.getString(1);
+                    if(horario.equals("0")){ //NO EXISTE EL EMPLEADO
+                        JOptionPane optionPane = new JOptionPane();
+                        optionPane.showMessageDialog(null,"        No se encontró empleado con clave "+rE_claveE.getText()+"        "
+                                + "\n        Intente con una clave diferente        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        CardLayout cl = (CardLayout) Contenido.getLayout();
+                        cl.show(Contenido,"conHorarioE");
+                        cE_errorM.setVisible(false);
+                        
+                        cE_clave.setText(rs.getString(2));
+                        cE_clave.setEnabled(false);
+                        
+                        cE_nombre.setText(rs.getString(3));
+                        cE_nombre.setEnabled(false);
+                        
+                        cE_primerA.setText(rs.getString(4));
+                        cE_primerA.setEnabled(false);
+                        
+                        cE_segundoA.setText(rs.getString(5));
+                        cE_segundoA.setEnabled(false);
+                        
+                        cE_curp.setText(rs.getString(6));
+                        cE_curp.setEnabled(false);
+                        
+                        String fecha = Extras.flipDate(rs.getString(7));
+                        ((JTextField) cE_fecha.getDateEditor().getUiComponent()).setText(fecha);
+                        cE_fecha.setEnabled(false);
+                        
+                        cE_calle.setText(rs.getString(8));
+                        cE_calle.setEnabled(false);
+                        
+                        cE_colonia.setText(rs.getString(9));
+                        cE_colonia.setEnabled(false);
+                        
+                        int item = Integer.valueOf(rs.getString(10)) - 1;
+                        cE_estado.setSelectedIndex(item);
+                        cE_estado.setEnabled(false);
+                        
+                        estadoItemStateChanged(cE_municipio,item);
+                        cE_municipio.setSelectedIndex(Integer.valueOf(rs.getString(11))-1);
+                        cE_municipio.setEnabled(false);
+                        
+                        cE_nExterior.setText(rs.getString(12));
+                        cE_nExterior.setEnabled(false);
+                        
+                        cE_nInterior.setText(rs.getString(13));
+                        cE_nInterior.setEnabled(false);
+                        
+                        cE_cPostal.setText(rs.getString(14));
+                        cE_cPostal.setEnabled(false);
+                        
+                        if(rs.getString(15).equals("A")){
+                            cE_activo.setSelected(true);
+                        }else{
+                            cE_inactivo.setSelected(true);
+                        }
+                        cE_activo.setEnabled(false);
+                        cE_inactivo.setEnabled(false);
+                    }
+                    
+                }//RESULT SET
+            } catch (SQLException ex) {
+                Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            cE1_error.setVisible(true);
+            cE1_error.setText("La clave de empleado debe contener nueve dígitos numéricos");
+        } 
+    }//GEN-LAST:event_cE1_buscarActionPerformed
+
+    private void cE_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_claveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cE_claveActionPerformed
+
+    private void cE_claveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_claveKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c>'9'||rE_claveE.getText().length() > 8){
+            evt.consume();
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("La clave de empleado debe contener nueve dígitos numéricos");
+        }else{
+            cE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_cE_claveKeyTyped
+
+    private void cE_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_nombreKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || cE_nombre.getText().length() > 34){
+            evt.consume();
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            cE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_cE_nombreKeyTyped
+
+    private void cE_primerAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_primerAKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || cE_primerA.getText().length() > 34){
+            evt.consume();
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            cE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_cE_primerAKeyTyped
+
+    private void cE_segundoAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_segundoAKeyTyped
+        char c = evt.getKeyChar();
+        if (((c<'a' || c>'z') && (c<'A' || c>'Z')&& c != ' ' && c != '-' && c != '.' && c != 'ñ' ) || cE_segundoA.getText().length() > 34){
+            evt.consume();
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("Sólo puedes ingresar letras, guión medio y punto");
+        }else{
+            cE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_cE_segundoAKeyTyped
+
+    private void cE_curpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_curpKeyTyped
+        String cadena = cE_curp.getText();
+        boolean completa = false;
+        char c = evt.getKeyChar();
+        
+        if(cadena.length()> 17 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z'){
+            evt.consume();
+        }else{
+            cadena += evt.getKeyChar();
+        }
+        
+        if(cadena.length()==18){
+            completa=true;
+        }
+        
+        if(completa){
+            cadena = cadena.toUpperCase();
+            boolean isVal = Extras.validarCURP(cadena);
+            if(isVal){
+                cE_errorM.setVisible(false); 
+            }else{
+                cE_errorM.setVisible(true);
+                cE_errorM.setText("La CURP ingresada no tiene un formato válido");
+            }
+        }else{
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("La CURP está incompleta");
+        }
+    }//GEN-LAST:event_cE_curpKeyTyped
+
+    private void cE_calleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_calleKeyTyped
+        if(cE_calle.getText().length() > 34){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cE_calleKeyTyped
+
+    private void cE_coloniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_coloniaKeyTyped
+        if(cE_colonia.getText().length() > 34){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cE_coloniaKeyTyped
+
+    private void cE_cPostalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_cPostalKeyTyped
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'||cE_cPostal.getText().length() > 4){
+            evt.consume();
+            cE_errorM.setVisible(true);
+            cE_errorM.setText("El cógigo postal debe tener cinco dígitos");
+        }else{
+            cE_errorM.setVisible(false);
+        }
+    }//GEN-LAST:event_cE_cPostalKeyTyped
+
+    private void cE_nInteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_nInteriorKeyTyped
+        char c = evt.getKeyChar();
+        if((cE_nInterior.getText().length() > 3 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z')&& c != '-'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cE_nInteriorKeyTyped
+
+    private void cE_nExteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_nExteriorActionPerformed
+        
+    }//GEN-LAST:event_cE_nExteriorActionPerformed
+
+    private void cE_nExteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cE_nExteriorKeyTyped
+        char c = evt.getKeyChar();
+        if((cE_nExterior.getText().length() > 3 || c < '0' || (c > '9' && c < 'A' ) || (c > 'Z' && c < 'a') || c > 'z')&& c != '-'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cE_nExteriorKeyTyped
+
+    private void cE_estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cE_estadoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+           int item = cE_estado.getSelectedIndex() + 1;
+            estadoItemStateChanged(cE_municipio, item);
+       }
+    }//GEN-LAST:event_cE_estadoItemStateChanged
+
+    private void cE_eliminarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_eliminarEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cE_eliminarEActionPerformed
+
+    private void cE_editarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_editarDatosActionPerformed
+        if(cE_editarDatos.getText().equals("Editar")){
+            activarModificarEmpleado();
+            cE_editarDatos.setText("Modificar");
+        }else{
+            if(cE_editarDatos.getText().equals("Modificar")){
+                desactivarModificarEmpleado();
+                cE_editarDatos.setText("Editar");
+            }
+        }
+        
+    }//GEN-LAST:event_cE_editarDatosActionPerformed
+
+    private void rH_isLStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rH_isLStateChanged
+        
+    }//GEN-LAST:event_rH_isLStateChanged
+
+    private void rH_isLItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isLItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isLItemStateChanged
+
+    private void rH_isMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isMItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isMItemStateChanged
+
+    private void rH_isWItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isWItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isWItemStateChanged
+
+    private void rH_isJItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isJItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isJItemStateChanged
+
+    private void rH_isVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isVItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isVItemStateChanged
+
+    private void rH_isSItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isSItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isSItemStateChanged
+
+    private void rH_isDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isDItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isDItemStateChanged
+
+    private void rH_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rH_registrarActionPerformed
+        Horario hr = new Horario();
+        if(rH_idH.getText().length() > 30 || Extras.isNull(rH_idH.getText())){
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(null,"        El ID Horario ingresado no es válido        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+        }else{
+            hr.setHorario(regHorario);
+            if(hr.dias.length == 0){
+                JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(null,"        El horario debe contar con  almenos un día        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+            }else{
+                try {
+                    QuerysBD consulta = new QuerysBD();
+                    hr.idHorario=rH_idH.getText();
+                    String rs = consulta.registrarHorario(rH_idH.getText());
+                    if(rs.equals("0")){
+                        consulta.modificarHorario(hr);
+                    }else{
+                       JOptionPane optionPane = new JOptionPane();
+                       optionPane.showMessageDialog(null,"        Ya existe un horario con el ID ingresado        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE); 
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_rH_registrarActionPerformed
+
+    private void rH_idHKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rH_idHKeyTyped
+        if(rH_idH.getText().length() > 29){
+            evt.consume();
+        }
+    }//GEN-LAST:event_rH_idHKeyTyped
+    private void activarModificarEmpleado(){
+        cE_clave.setEnabled(true);
+        cE_nombre.setEnabled(true);
+        cE_primerA.setEnabled(true);
+        cE_segundoA.setEnabled(true);
+        cE_curp.setEnabled(true);
+        cE_fecha.setEnabled(true);
+        cE_calle.setEnabled(true);
+        cE_colonia.setEnabled(true);
+        cE_estado.setEnabled(true);
+        cE_municipio.setEnabled(true);
+        cE_nExterior.setEnabled(true);
+        cE_nInterior.setEnabled(true);
+        cE_cPostal.setEnabled(true);
+        cE_activo.setEnabled(true);
+        cE_inactivo.setEnabled(true);
+        cE_eliminarE.setVisible(false);
+    }
+    private void borrarDatosForm(Component[] comps){
+        for(Component a: comps){
+            if(a.getClass().getName().equals("javax.swing.JTextField")){
+                ((JTextField) a).setText("");
+            }
+        }
+    }
+    private void desactivarModificarEmpleado(){
+        cE_clave.setEnabled(false);
+        cE_nombre.setEnabled(false);
+        cE_primerA.setEnabled(false);
+        cE_segundoA.setEnabled(false);
+        cE_curp.setEnabled(false);
+        cE_fecha.setEnabled(false);
+        cE_calle.setEnabled(false);
+        cE_colonia.setEnabled(false);
+        cE_estado.setEnabled(false);
+        cE_municipio.setEnabled(false);
+        cE_nExterior.setEnabled(false);
+        cE_nInterior.setEnabled(false);
+        cE_cPostal.setEnabled(false);
+        cE_activo.setEnabled(false);
+        cE_inactivo.setEnabled(false);
+        cE_eliminarE.setVisible(true);
+    }
+    public void enableSpinner(JPanel panel){
+        boolean mostrar = false;
+        for(Component c : panel.getComponents()){
+
+            if(c.getClass().getName().equals("javax.swing.JRadioButton")){
+                if(((JRadioButton)c).isSelected()){
+                    mostrar = true;
+                }
+            }//Si es laboral esta seleccionado
+
+            if(c.getClass().getName().equals("javax.swing.JSpinner")){
+                if(mostrar){
+                   ((JSpinner)c).setVisible(true); 
+                }else{
+                    ((JSpinner)c).setVisible(false);
+                }//Si esta seleccionado mostrar   
+            }
+
+        }//Recorre row de jpanel
+    }
+    public void enableSelectedDays(JPanel card){
+        for(Component panel : card.getComponents()){
+            
+            if(panel.getClass().getName().equals("javax.swing.JPanel")){
+                enableSpinner( (JPanel) panel);
+            }//Busca los jpanel con los dias
+        }
+    }
+    public void creaObjHorario(JPanel panel){
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-
-        try {
-            UIManager.setLookAndFeel (new MaterialLookAndFeel( new MaterialLiteTheme() ));
-        }
-        catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace ();
-        }
-        
-        System.out.println(MaterialColors.LIGHT_BLUE_400);
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HOME().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Contenido;
     private javax.swing.JPanel Menu;
+    private javax.swing.JPanel bienvenido;
+    private javax.swing.JButton cE1_buscar;
+    private javax.swing.JTextField cE1_claveE;
+    private javax.swing.JLabel cE1_error;
+    private javax.swing.JRadioButton cE_activo;
+    private javax.swing.JTextField cE_cPostal;
+    private javax.swing.JTextField cE_calle;
+    private javax.swing.JTextField cE_clave;
+    private javax.swing.JTextField cE_colonia;
+    private javax.swing.JTextField cE_curp;
+    private javax.swing.JButton cE_editarDatos;
+    private javax.swing.JButton cE_eliminarE;
+    private javax.swing.JLabel cE_errorM;
+    private javax.swing.JComboBox<String> cE_estado;
+    private com.toedter.calendar.JDateChooser cE_fecha;
+    private javax.swing.JRadioButton cE_inactivo;
+    private javax.swing.JComboBox<String> cE_municipio;
+    private javax.swing.JTextField cE_nExterior;
+    private javax.swing.JTextField cE_nInterior;
+    private javax.swing.JTextField cE_nombre;
+    private javax.swing.JTextField cE_primerA;
+    private javax.swing.JTextField cE_segundoA;
+    private javax.swing.ButtonGroup cE_status;
     private javax.swing.JButton cargar;
+    private javax.swing.JPanel conDatosE;
+    private javax.swing.JPanel conEmpleado;
+    private javax.swing.JPanel conHE;
+    private javax.swing.JPanel conHorarioE;
+    private javax.swing.JTabbedPane conHorarioEd;
     private javax.swing.JButton consAsis;
     private javax.swing.JButton consEmp;
     private javax.swing.JButton consHor;
     private javax.swing.JButton consInci;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField rE_cPostal;
+    private javax.swing.JTextField rE_calle;
+    private javax.swing.JTextField rE_claveE;
+    private javax.swing.JTextField rE_colonia;
+    private javax.swing.JTextField rE_curp;
+    private javax.swing.JLabel rE_errorM;
+    private javax.swing.JComboBox<String> rE_estado;
+    private com.toedter.calendar.JDateChooser rE_fecha;
+    private javax.swing.JComboBox<String> rE_municipio;
+    private javax.swing.JTextField rE_nExterior;
+    private javax.swing.JTextField rE_nInterior;
+    private javax.swing.JTextField rE_nombre;
+    private javax.swing.JTextField rE_primerA;
+    private javax.swing.JTextField rE_segundoA;
+    private javax.swing.ButtonGroup rE_status;
+    private javax.swing.JButton rE_submit;
+    private javax.swing.JSpinner rH_eD;
+    private javax.swing.JSpinner rH_eJ;
+    private javax.swing.JSpinner rH_eL;
+    private javax.swing.JSpinner rH_eM;
+    private javax.swing.JSpinner rH_eS;
+    private javax.swing.JSpinner rH_eV;
+    private javax.swing.JSpinner rH_eW;
+    private javax.swing.JTextField rH_idH;
+    private javax.swing.JRadioButton rH_isD;
+    private javax.swing.JRadioButton rH_isJ;
+    private javax.swing.JRadioButton rH_isL;
+    private javax.swing.JRadioButton rH_isM;
+    private javax.swing.JRadioButton rH_isS;
+    private javax.swing.JRadioButton rH_isV;
+    private javax.swing.JRadioButton rH_isW;
+    private javax.swing.JButton rH_registrar;
+    private javax.swing.JSpinner rH_sD;
+    private javax.swing.JSpinner rH_sJ;
+    private javax.swing.JSpinner rH_sL;
+    private javax.swing.JSpinner rH_sM;
+    private javax.swing.JSpinner rH_sS;
+    private javax.swing.JSpinner rH_sV;
+    private javax.swing.JSpinner rH_sW;
     private javax.swing.JButton regEmp;
+    private javax.swing.JPanel regEmpleado;
     private javax.swing.JButton regHor;
+    private javax.swing.JPanel regHorario;
     // End of variables declaration//GEN-END:variables
 }
