@@ -53,10 +53,13 @@ public class Extras {
         String hora = getText( ((javax.swing.JSpinner) c).getEditor().getComponent(0) );
         return hora;
     }
+    
     public static String getText(Component c){
         return ((javax.swing.JTextField) c).getText();
     }
-    
+    public static void setText(Component c, String texto){
+        ( (JTextField)  ((javax.swing.JSpinner) c).getEditor().getComponent(0)  ).setText(texto);
+    }
     public static boolean validarFormatoFecha(String fecha){
         if(isNull(fecha)){
             return false;

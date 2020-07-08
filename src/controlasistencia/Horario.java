@@ -6,6 +6,10 @@
 package controlasistencia;
 
 import java.awt.Component;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
@@ -17,9 +21,23 @@ import javax.swing.JSpinner;
 public class Horario {
     public String idHorario;
     public Dia[] dias;
+    HashMap<String,Integer> diccionario = new HashMap<String,Integer>();
+
+    Horario() {
+    }
     
     public Dia[] getHorario(){
         return this.dias;
+    }
+    public Horario(String clave){
+        
+    }
+    void setDias(Dia[] d, int i) {
+        this.dias = new Dia[i];
+        for(int k=0;k<i;k++){
+            this.dias[k] = d[k];
+            diccionario.put(String.valueOf(d[k].dia), k);
+        }
     }
     public void setHorario(JPanel panel){
         boolean esLaboral=false;
@@ -32,10 +50,12 @@ public class Horario {
             esLaboral = false;
             if(comp.getClass().getName().equals("javax.swing.JPanel")){
                 dia = Integer.valueOf(((JPanel)comp).getName());
+                
                 for(Component c : ((JPanel)comp).getComponents()){
                     
                     if(c.getClass().getName().equals("javax.swing.JRadioButton")){
                         if(  (  (JRadioButton)  c).isSelected()  ){
+                            
                             esLaboral = true;
                         }
                     }
@@ -59,9 +79,8 @@ public class Horario {
         for(int k = 0;k < i ; k++){
             dias[k]= _dias[k];
         }
-    }
-    
-    
+    }  
+
 }
 
 

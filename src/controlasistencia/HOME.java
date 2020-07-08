@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +27,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.animation.MaterialUIMovement;
 import mdlaf.themes.MaterialLiteTheme;
@@ -39,6 +41,8 @@ public class HOME extends javax.swing.JFrame {
     
     Fonts fts;
     boolean activeEmpleado=false;
+    Empleado empleado=null;
+    
     /**
      * Creates new form HOME
      */
@@ -152,6 +156,56 @@ public class HOME extends javax.swing.JFrame {
         cE_inactivo = new javax.swing.JRadioButton();
         cE_eliminarE = new javax.swing.JButton();
         conHE = new javax.swing.JPanel();
+        sinAsignar = new javax.swing.JPanel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        cHE_comboHorarios = new javax.swing.JComboBox<>();
+        cHE_asignar = new javax.swing.JButton();
+        horAsignado = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        cHE_idHorario = new javax.swing.JTextField();
+        cHE_remover = new javax.swing.JButton();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel72 = new javax.swing.JLabel();
+        rH_eD3 = new javax.swing.JSpinner();
+        rH_sD3 = new javax.swing.JSpinner();
+        rH_isD3 = new javax.swing.JRadioButton();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        rH_eS2 = new javax.swing.JSpinner();
+        rH_sS2 = new javax.swing.JSpinner();
+        rH_isS2 = new javax.swing.JRadioButton();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel74 = new javax.swing.JLabel();
+        rH_eV2 = new javax.swing.JSpinner();
+        rH_sV2 = new javax.swing.JSpinner();
+        rH_isV2 = new javax.swing.JRadioButton();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel75 = new javax.swing.JLabel();
+        rH_eJ2 = new javax.swing.JSpinner();
+        rH_sJ2 = new javax.swing.JSpinner();
+        rH_isJ2 = new javax.swing.JRadioButton();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel76 = new javax.swing.JLabel();
+        rH_eW2 = new javax.swing.JSpinner();
+        rH_sW2 = new javax.swing.JSpinner();
+        rH_isW2 = new javax.swing.JRadioButton();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel77 = new javax.swing.JLabel();
+        rH_eM2 = new javax.swing.JSpinner();
+        rH_sM2 = new javax.swing.JSpinner();
+        rH_isM2 = new javax.swing.JRadioButton();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel78 = new javax.swing.JLabel();
+        rH_eL2 = new javax.swing.JSpinner();
+        rH_sL2 = new javax.swing.JSpinner();
+        rH_isL2 = new javax.swing.JRadioButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
         regHorario = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
@@ -197,6 +251,52 @@ public class HOME extends javax.swing.JFrame {
         rH_isD = new javax.swing.JRadioButton();
         jLabel53 = new javax.swing.JLabel();
         rH_registrar = new javax.swing.JButton();
+        conHorario = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
+        rH_eL1 = new javax.swing.JSpinner();
+        rH_sL1 = new javax.swing.JSpinner();
+        rH_isL1 = new javax.swing.JRadioButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel60 = new javax.swing.JLabel();
+        rH_eM1 = new javax.swing.JSpinner();
+        rH_sM1 = new javax.swing.JSpinner();
+        rH_isM1 = new javax.swing.JRadioButton();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel61 = new javax.swing.JLabel();
+        rH_eW1 = new javax.swing.JSpinner();
+        rH_sW1 = new javax.swing.JSpinner();
+        rH_isW1 = new javax.swing.JRadioButton();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        rH_eJ1 = new javax.swing.JSpinner();
+        rH_sJ1 = new javax.swing.JSpinner();
+        rH_isJ1 = new javax.swing.JRadioButton();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        rH_eV1 = new javax.swing.JSpinner();
+        rH_sV1 = new javax.swing.JSpinner();
+        rH_isV1 = new javax.swing.JRadioButton();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel64 = new javax.swing.JLabel();
+        rH_eS1 = new javax.swing.JSpinner();
+        rH_sS1 = new javax.swing.JSpinner();
+        rH_isS1 = new javax.swing.JRadioButton();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel65 = new javax.swing.JLabel();
+        rH_eD1 = new javax.swing.JSpinner();
+        rH_sD1 = new javax.swing.JSpinner();
+        rH_isD1 = new javax.swing.JRadioButton();
+        jLabel66 = new javax.swing.JLabel();
+        cH_editarHorario = new javax.swing.JButton();
+        cH_comboHorarios = new javax.swing.JComboBox<>();
+        cH_eliminarH = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control de asistencia");
@@ -1201,7 +1301,7 @@ public class HOME extends javax.swing.JFrame {
                                 .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel29)
                                     .addComponent(cE_segundoA, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(64, Short.MAX_VALUE))
+                        .addContainerGap(69, Short.MAX_VALUE))
                     .addGroup(conDatosELayout.createSequentialGroup()
                         .addComponent(cE_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -1235,7 +1335,7 @@ public class HOME extends javax.swing.JFrame {
                             .addComponent(cE_fecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(cE_errorM, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1272,7 +1372,7 @@ public class HOME extends javax.swing.JFrame {
                         .addGroup(conDatosELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cE_editarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cE_eliminarE, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(264, 264, 264))
+                .addGap(353, 353, 353))
         );
 
         conHorarioEd.addTab("Datos", conDatosE);
@@ -1280,17 +1380,587 @@ public class HOME extends javax.swing.JFrame {
         conHE.setBackground(new java.awt.Color(233, 209, 153));
         conHE.setForeground(new java.awt.Color(52, 46, 55));
         conHE.setFont(fts.PTSans_Regular_12);
+        conHE.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout conHELayout = new javax.swing.GroupLayout(conHE);
-        conHE.setLayout(conHELayout);
-        conHELayout.setHorizontalGroup(
-            conHELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+        sinAsignar.setBackground(new java.awt.Color(233, 209, 153));
+
+        jLabel67.setBackground(new java.awt.Color(215, 124, 101));
+        jLabel67.setFont(fts.OswaldLight);
+        jLabel67.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel67.setText("                        Horario de empleado");
+        jLabel67.setOpaque(true);
+        jLabel67.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel68.setFont(fts.PTSans_Regular_12);
+        jLabel68.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel68.setText("ID Horario");
+
+        cHE_comboHorarios.setFont(fts.PTSans_Regular_12);
+        cHE_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
+        cHE_comboHorarios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cHE_comboHorariosItemStateChanged(evt);
+            }
+        });
+
+        cHE_asignar.setBackground(new java.awt.Color(52, 46, 55));
+        cHE_asignar.setFont(fts.PTSans_Bold);
+        cHE_asignar.setForeground(new java.awt.Color(224, 224, 226));
+        cHE_asignar.setText("Asignar");
+        cHE_asignar.addMouseListener(MaterialUIMovement.getMovement( cHE_asignar,new java.awt.Color(119,47,91) ));
+        cHE_asignar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        cHE_asignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cHE_asignarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sinAsignarLayout = new javax.swing.GroupLayout(sinAsignar);
+        sinAsignar.setLayout(sinAsignarLayout);
+        sinAsignarLayout.setHorizontalGroup(
+            sinAsignarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sinAsignarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel68))
+            .addGroup(sinAsignarLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cHE_comboHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147)
+                .addGroup(sinAsignarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cHE_asignar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-        conHELayout.setVerticalGroup(
-            conHELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
+        sinAsignarLayout.setVerticalGroup(
+            sinAsignarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sinAsignarLayout.createSequentialGroup()
+                .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel68)
+                .addGap(18, 18, 18)
+                .addGroup(sinAsignarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cHE_comboHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cHE_asignar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 740, Short.MAX_VALUE))
         );
+
+        conHE.add(sinAsignar, "sinAsignar");
+
+        horAsignado.setBackground(new java.awt.Color(233, 209, 153));
+
+        jLabel69.setFont(fts.PTSans_Regular_12);
+        jLabel69.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel69.setText("ID Horario");
+
+        jLabel70.setBackground(new java.awt.Color(215, 124, 101));
+        jLabel70.setFont(fts.OswaldLight);
+        jLabel70.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel70.setText("                        Horario de empleado");
+        jLabel70.setOpaque(true);
+        jLabel70.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        cHE_idHorario.setEditable(false);
+        cHE_idHorario.setFont(fts.PTSans_Regular_12);
+
+        cHE_remover.setBackground(new java.awt.Color(52, 46, 55));
+        cHE_remover.setFont(fts.PTSans_Bold);
+        cHE_remover.setForeground(new java.awt.Color(224, 224, 226));
+        cHE_remover.setText("Remover");
+        cHE_remover.addMouseListener(MaterialUIMovement.getMovement( cHE_remover,new java.awt.Color(119,47,91) ));
+        cHE_remover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 209, 153), 2));
+        cHE_remover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cHE_removerActionPerformed(evt);
+            }
+        });
+
+        jPanel16.setName("7"); // NOI18N
+
+        jLabel72.setFont(fts.PTSans_Regular_12);
+        jLabel72.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel72.setText("Domingo");
+
+        rH_eD3.setFont(fts.PTSans_Regular_12);
+        rH_eD3.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eD3.setEditor(new javax.swing.JSpinner.DateEditor(rH_eD3, "HH:mm"));
+        rH_eD3.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eD3.getEditor().getComponent(0));
+
+        rH_sD3.setFont(fts.PTSans_Regular_12);
+        rH_sD3.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sD3.setEditor(new javax.swing.JSpinner.DateEditor(rH_sD3, "HH:mm"));
+        rH_sD3.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sD3.getEditor().getComponent(0));
+
+        rH_isD3.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isD3.setText("Si");
+        rH_isD3.setName("radio"); // NOI18N
+        rH_isD3.setOpaque(false);
+        rH_isD3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isD3ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eD3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(rH_sD3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isD3))
+            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sD3)
+                .addComponent(rH_eD3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel17.setName("6"); // NOI18N
+
+        jLabel73.setFont(fts.PTSans_Regular_12);
+        jLabel73.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel73.setText("Sábado");
+
+        rH_eS2.setFont(fts.PTSans_Regular_12);
+        rH_eS2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eS2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eS2, "HH:mm"));
+        rH_eS2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eS2.getEditor().getComponent(0));
+
+        rH_sS2.setFont(fts.PTSans_Regular_12);
+        rH_sS2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sS2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sS2, "HH:mm"));
+        rH_sS2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sS2.getEditor().getComponent(0));
+
+        rH_isS2.setFont(fts.PTSans_Regular_12);
+        rH_isS2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isS2.setText("Si");
+        rH_isS2.setName("radio"); // NOI18N
+        rH_isS2.setOpaque(false);
+        rH_isS2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isS2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isS2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eS2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sS2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isS2))
+            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sS2)
+                .addComponent(rH_eS2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel18.setName("5"); // NOI18N
+
+        jLabel74.setFont(fts.PTSans_Regular_12);
+        jLabel74.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel74.setText("Viernes");
+
+        rH_eV2.setFont(fts.PTSans_Regular_12);
+        rH_eV2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eV2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eV2, "HH:mm"));
+        rH_eV2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eV2.getEditor().getComponent(0));
+
+        rH_sV2.setFont(fts.PTSans_Regular_12);
+        rH_sV2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sV2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sV2, "HH:mm"));
+        rH_sV2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sV2.getEditor().getComponent(0));
+
+        rH_isV2.setFont(fts.PTSans_Regular_12);
+        rH_isV2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isV2.setText("Si");
+        rH_isV2.setName("radio"); // NOI18N
+        rH_isV2.setOpaque(false);
+        rH_isV2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isV2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isV2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eV2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sV2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isV2))
+            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sV2)
+                .addComponent(rH_eV2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel19.setName("4"); // NOI18N
+
+        jLabel75.setFont(fts.PTSans_Regular_12);
+        jLabel75.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel75.setText("Jueves");
+
+        rH_eJ2.setFont(fts.PTSans_Regular_12);
+        rH_eJ2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eJ2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eJ2, "HH:mm"));
+        rH_eJ2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eJ2.getEditor().getComponent(0));
+
+        rH_sJ2.setFont(fts.PTSans_Regular_12);
+        rH_sJ2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sJ2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sJ2, "HH:mm"));
+        rH_sJ2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sJ2.getEditor().getComponent(0));
+
+        rH_isJ2.setFont(fts.PTSans_Regular_12);
+        rH_isJ2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isJ2.setText("Si");
+        rH_isJ2.setName("radio"); // NOI18N
+        rH_isJ2.setOpaque(false);
+        rH_isJ2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isJ2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isJ2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isJ2))
+            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sJ2)
+                .addComponent(rH_eJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel20.setName("3"); // NOI18N
+
+        jLabel76.setFont(fts.PTSans_Regular_12);
+        jLabel76.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel76.setText("Miercoles");
+
+        rH_eW2.setFont(fts.PTSans_Regular_12);
+        rH_eW2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eW2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eW2, "HH:mm"));
+        rH_eW2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eW2.getEditor().getComponent(0));
+
+        rH_sW2.setFont(fts.PTSans_Regular_12);
+        rH_sW2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sW2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sW2, "HH:mm"));
+        rH_sW2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sW2.getEditor().getComponent(0));
+
+        rH_isW2.setFont(fts.PTSans_Regular_12);
+        rH_isW2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isW2.setText("Si");
+        rH_isW2.setName("radio"); // NOI18N
+        rH_isW2.setOpaque(false);
+        rH_isW2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isW2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(rH_isW2)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eW2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_sW2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isW2))
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sW2)
+                .addComponent(rH_eW2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel21.setName("2"); // NOI18N
+
+        jLabel77.setFont(fts.PTSans_Regular_12);
+        jLabel77.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel77.setText("Martes");
+
+        rH_eM2.setFont(fts.PTSans_Regular_12);
+        rH_eM2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eM2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eM2, "HH:mm"));
+        rH_eM2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eM2.getEditor().getComponent(0));
+
+        rH_sM2.setFont(fts.PTSans_Regular_12);
+        rH_sM2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sM2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sM2, "HH:mm"));
+        rH_sM2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sM2.getEditor().getComponent(0));
+
+        rH_isM2.setFont(fts.PTSans_Regular_12);
+        rH_isM2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isM2.setText("Si");
+        rH_isM2.setName("radio"); // NOI18N
+        rH_isM2.setOpaque(false);
+        rH_isM2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isM2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isM2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eM2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(rH_sM2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isM2))
+            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sM2)
+                .addComponent(rH_eM2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel22.setMaximumSize(new java.awt.Dimension(800, 40));
+        jPanel22.setMinimumSize(new java.awt.Dimension(716, 30));
+        jPanel22.setName("1"); // NOI18N
+
+        jLabel78.setFont(fts.PTSans_Regular_12);
+        jLabel78.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel78.setText("Lunes");
+
+        rH_eL2.setFont(fts.PTSans_Regular_12);
+        rH_eL2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eL2.setEditor(new javax.swing.JSpinner.DateEditor(rH_eL2, "HH:mm"));
+        rH_eL2.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eL2.getEditor().getComponent(0));
+
+        rH_sL2.setFont(fts.PTSans_Regular_12);
+        rH_sL2.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sL2.setEditor(new javax.swing.JSpinner.DateEditor(rH_sL2, "HH:mm"));
+        rH_sL2.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sL2.getEditor().getComponent(0));
+
+        rH_isL2.setFont(fts.PTSans_Regular_12);
+        rH_isL2.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isL2.setText("Si");
+        rH_isL2.setName("radio"); // NOI18N
+        rH_isL2.setOpaque(false);
+        rH_isL2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isL2ItemStateChanged(evt);
+            }
+        });
+        rH_isL2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rH_isL2StateChanged(evt);
+            }
+        });
+        rH_isL2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rH_isL2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isL2)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eL2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(rH_sL2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rH_isL2)))
+            .addComponent(rH_eL2)
+            .addComponent(rH_sL2)
+        );
+
+        jSeparator3.setForeground(new java.awt.Color(209, 87, 129));
+        jSeparator3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel79.setFont(fts.PTSans_Regular);
+        jLabel79.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel79.setText("Día");
+
+        jLabel80.setFont(fts.PTSans_Regular);
+        jLabel80.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel80.setText("Es laboral");
+
+        jLabel81.setFont(fts.PTSans_Regular);
+        jLabel81.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel81.setText("Hora de entrada");
+
+        jLabel82.setFont(fts.PTSans_Regular);
+        jLabel82.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel82.setText("Hora de salida");
+
+        javax.swing.GroupLayout horAsignadoLayout = new javax.swing.GroupLayout(horAsignado);
+        horAsignado.setLayout(horAsignadoLayout);
+        horAsignadoLayout.setHorizontalGroup(
+            horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(horAsignadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(horAsignadoLayout.createSequentialGroup()
+                        .addComponent(cHE_idHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(horAsignadoLayout.createSequentialGroup()
+                        .addGroup(horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel69)
+                            .addGroup(horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(horAsignadoLayout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(40, 40, 40)
+                                    .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator3)
+                                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, horAsignadoLayout.createSequentialGroup()
+                                        .addGap(214, 214, 214)
+                                        .addComponent(cHE_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        horAsignadoLayout.setVerticalGroup(
+            horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(horAsignadoLayout.createSequentialGroup()
+                .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel69)
+                .addGap(18, 18, 18)
+                .addComponent(cHE_idHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addGroup(horAsignadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel79)
+                    .addComponent(jLabel81)
+                    .addComponent(jLabel82)
+                    .addComponent(jLabel80))
+                .addGap(29, 29, 29)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(cHE_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 316, Short.MAX_VALUE))
+        );
+
+        conHE.add(horAsignado, "horAsignado");
 
         conHorarioEd.addTab("Horario", conHE);
 
@@ -1298,7 +1968,7 @@ public class HOME extends javax.swing.JFrame {
         conHorarioE.setLayout(conHorarioELayout);
         conHorarioELayout.setHorizontalGroup(
             conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
+            .addGap(0, 775, Short.MAX_VALUE)
             .addGroup(conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(conHorarioELayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1307,7 +1977,7 @@ public class HOME extends javax.swing.JFrame {
         );
         conHorarioELayout.setVerticalGroup(
             conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 783, Short.MAX_VALUE)
+            .addGap(0, 887, Short.MAX_VALUE)
             .addGroup(conHorarioELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(conHorarioELayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1823,6 +2493,542 @@ public class HOME extends javax.swing.JFrame {
 
         Contenido.add(regHorario, "regHorario");
 
+        conHorario.setBackground(new java.awt.Color(224, 224, 226));
+
+        jLabel54.setBackground(new java.awt.Color(209, 87, 129));
+        jLabel54.setFont(fts.OswaldLight);
+        jLabel54.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel54.setText("                        Consulta de horario");
+        jLabel54.setOpaque(true);
+        jLabel54.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel55.setFont(fts.PTSans_Regular_12);
+        jLabel55.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel55.setText("ID Horario");
+
+        jSeparator2.setForeground(new java.awt.Color(209, 87, 129));
+        jSeparator2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel56.setFont(fts.PTSans_Regular);
+        jLabel56.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel56.setText("Día");
+
+        jLabel57.setFont(fts.PTSans_Regular);
+        jLabel57.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel57.setText("Hora de entrada");
+
+        jLabel58.setFont(fts.PTSans_Regular);
+        jLabel58.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel58.setText("Hora de salida");
+
+        jPanel8.setMaximumSize(new java.awt.Dimension(800, 40));
+        jPanel8.setMinimumSize(new java.awt.Dimension(716, 30));
+        jPanel8.setName("1"); // NOI18N
+
+        jLabel59.setFont(fts.PTSans_Regular_12);
+        jLabel59.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel59.setText("Lunes");
+
+        rH_eL1.setFont(fts.PTSans_Regular_12);
+        rH_eL1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eL1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eL1, "HH:mm"));
+        rH_eL1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eL1.getEditor().getComponent(0));
+
+        rH_sL1.setFont(fts.PTSans_Regular_12);
+        rH_sL1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sL1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sL1, "HH:mm"));
+        rH_sL1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sL1.getEditor().getComponent(0));
+
+        rH_isL1.setFont(fts.PTSans_Regular_12);
+        rH_isL1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isL1.setText("Si");
+        rH_isL1.setName("radio"); // NOI18N
+        rH_isL1.setOpaque(false);
+        rH_isL1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isL1ItemStateChanged(evt);
+            }
+        });
+        rH_isL1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rH_isL1StateChanged(evt);
+            }
+        });
+        rH_isL1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rH_isL1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isL1)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eL1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_sL1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rH_isL1)))
+            .addComponent(rH_eL1)
+            .addComponent(rH_sL1)
+        );
+
+        jPanel9.setName("2"); // NOI18N
+
+        jLabel60.setFont(fts.PTSans_Regular_12);
+        jLabel60.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel60.setText("Martes");
+
+        rH_eM1.setFont(fts.PTSans_Regular_12);
+        rH_eM1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eM1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eM1, "HH:mm"));
+        rH_eM1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eM1.getEditor().getComponent(0));
+
+        rH_sM1.setFont(fts.PTSans_Regular_12);
+        rH_sM1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sM1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sM1, "HH:mm"));
+        rH_sM1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sM1.getEditor().getComponent(0));
+
+        rH_isM1.setFont(fts.PTSans_Regular_12);
+        rH_isM1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isM1.setText("Si");
+        rH_isM1.setName("radio"); // NOI18N
+        rH_isM1.setOpaque(false);
+        rH_isM1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isM1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isM1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eM1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(rH_sM1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isM1))
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sM1)
+                .addComponent(rH_eM1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel10.setName("3"); // NOI18N
+
+        jLabel61.setFont(fts.PTSans_Regular_12);
+        jLabel61.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel61.setText("Miercoles");
+
+        rH_eW1.setFont(fts.PTSans_Regular_12);
+        rH_eW1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eW1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eW1, "HH:mm"));
+        rH_eW1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eW1.getEditor().getComponent(0));
+
+        rH_sW1.setFont(fts.PTSans_Regular_12);
+        rH_sW1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sW1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sW1, "HH:mm"));
+        rH_sW1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sW1.getEditor().getComponent(0));
+
+        rH_isW1.setFont(fts.PTSans_Regular_12);
+        rH_isW1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isW1.setText("Si");
+        rH_isW1.setName("radio"); // NOI18N
+        rH_isW1.setOpaque(false);
+        rH_isW1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isW1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(rH_isW1)
+                .addGap(52, 52, 52)
+                .addComponent(rH_eW1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(rH_sW1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isW1))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sW1)
+                .addComponent(rH_eW1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel11.setName("4"); // NOI18N
+
+        jLabel62.setFont(fts.PTSans_Regular_12);
+        jLabel62.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel62.setText("Jueves");
+
+        rH_eJ1.setFont(fts.PTSans_Regular_12);
+        rH_eJ1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eJ1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eJ1, "HH:mm"));
+        rH_eJ1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eJ1.getEditor().getComponent(0));
+
+        rH_sJ1.setFont(fts.PTSans_Regular_12);
+        rH_sJ1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sJ1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sJ1, "HH:mm"));
+        rH_sJ1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sJ1.getEditor().getComponent(0));
+
+        rH_isJ1.setFont(fts.PTSans_Regular_12);
+        rH_isJ1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isJ1.setText("Si");
+        rH_isJ1.setName("radio"); // NOI18N
+        rH_isJ1.setOpaque(false);
+        rH_isJ1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isJ1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isJ1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isJ1))
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sJ1)
+                .addComponent(rH_eJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel12.setName("5"); // NOI18N
+
+        jLabel63.setFont(fts.PTSans_Regular_12);
+        jLabel63.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel63.setText("Viernes");
+
+        rH_eV1.setFont(fts.PTSans_Regular_12);
+        rH_eV1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eV1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eV1, "HH:mm"));
+        rH_eV1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eV1.getEditor().getComponent(0));
+
+        rH_sV1.setFont(fts.PTSans_Regular_12);
+        rH_sV1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sV1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sV1, "HH:mm"));
+        rH_sV1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sV1.getEditor().getComponent(0));
+
+        rH_isV1.setFont(fts.PTSans_Regular_12);
+        rH_isV1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isV1.setText("Si");
+        rH_isV1.setName("radio"); // NOI18N
+        rH_isV1.setOpaque(false);
+        rH_isV1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isV1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isV1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eV1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sV1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isV1))
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sV1)
+                .addComponent(rH_eV1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel13.setName("6"); // NOI18N
+
+        jLabel64.setFont(fts.PTSans_Regular_12);
+        jLabel64.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel64.setText("Sábado");
+
+        rH_eS1.setFont(fts.PTSans_Regular_12);
+        rH_eS1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eS1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eS1, "HH:mm"));
+        rH_eS1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eS1.getEditor().getComponent(0));
+
+        rH_sS1.setFont(fts.PTSans_Regular_12);
+        rH_sS1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sS1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sS1, "HH:mm"));
+        rH_sS1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sS1.getEditor().getComponent(0));
+
+        rH_isS1.setFont(fts.PTSans_Regular_12);
+        rH_isS1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isS1.setText("Si");
+        rH_isS1.setName("radio"); // NOI18N
+        rH_isS1.setOpaque(false);
+        rH_isS1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isS1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(rH_isS1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eS1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rH_sS1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isS1))
+            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sS1)
+                .addComponent(rH_eS1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel14.setName("7"); // NOI18N
+
+        jLabel65.setFont(fts.PTSans_Regular_12);
+        jLabel65.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel65.setText("Domingo");
+
+        rH_eD1.setFont(fts.PTSans_Regular_12);
+        rH_eD1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_eD1.setEditor(new javax.swing.JSpinner.DateEditor(rH_eD1, "HH:mm"));
+        rH_eD1.setName("entrada"); // NOI18N
+        Extras.setTransparent(rH_eD1.getEditor().getComponent(0));
+
+        rH_sD1.setFont(fts.PTSans_Regular_12);
+        rH_sD1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null,Calendar.MINUTE));
+        rH_sD1.setEditor(new javax.swing.JSpinner.DateEditor(rH_sD1, "HH:mm"));
+        rH_sD1.setName("salida"); // NOI18N
+        Extras.setTransparent(rH_sD1.getEditor().getComponent(0));
+
+        rH_isD1.setForeground(new java.awt.Color(52, 46, 55));
+        rH_isD1.setText("Si");
+        rH_isD1.setName("radio"); // NOI18N
+        rH_isD1.setOpaque(false);
+        rH_isD1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rH_isD1ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(rH_isD1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rH_eD1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(rH_sD1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rH_isD1))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rH_sD1)
+                .addComponent(rH_eD1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLabel66.setFont(fts.PTSans_Regular);
+        jLabel66.setForeground(new java.awt.Color(52, 46, 55));
+        jLabel66.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel66.setText("Es laboral");
+
+        cH_editarHorario.setFont(fts.PTSans_Bold);
+        cH_editarHorario.setForeground(new java.awt.Color(52, 46, 55));
+        cH_editarHorario.setText("Editar");
+        cH_editarHorario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 87, 129), 2));
+        cH_editarHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cH_editarHorarioActionPerformed(evt);
+            }
+        });
+
+        cH_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
+        cH_comboHorarios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cH_comboHorariosItemStateChanged(evt);
+            }
+        });
+
+        cH_eliminarH.setBackground(new java.awt.Color(52, 46, 55));
+        cH_eliminarH.setFont(fts.PTSans_Bold);
+        cH_eliminarH.setForeground(new java.awt.Color(224, 224, 226));
+        cH_eliminarH.setText("Eliminar");
+        cH_eliminarH.addMouseListener(MaterialUIMovement.getMovement( cH_eliminarH,new java.awt.Color(119,47,91) ));
+        cH_eliminarH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 224, 226), 2));
+        cH_eliminarH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cH_eliminarHActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout conHorarioLayout = new javax.swing.GroupLayout(conHorario);
+        conHorario.setLayout(conHorarioLayout);
+        conHorarioLayout.setHorizontalGroup(
+            conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conHorarioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(conHorarioLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel55)
+                        .addGroup(conHorarioLayout.createSequentialGroup()
+                            .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(40, 40, 40)
+                            .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(38, 38, 38)
+                            .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(conHorarioLayout.createSequentialGroup()
+                        .addComponent(cH_comboHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(462, 462, 462)))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conHorarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator2)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conHorarioLayout.createSequentialGroup()
+                        .addComponent(cH_editarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(cH_eliminarH, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+        );
+        conHorarioLayout.setVerticalGroup(
+            conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conHorarioLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel55)
+                .addGap(18, 18, 18)
+                .addComponent(cH_comboHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel56)
+                    .addComponent(jLabel57)
+                    .addComponent(jLabel58)
+                    .addComponent(jLabel66))
+                .addGap(29, 29, 29)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addGroup(conHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cH_editarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cH_eliminarH, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+
+        Contenido.add(conHorario, "conHorario");
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
@@ -1922,11 +3128,30 @@ public class HOME extends javax.swing.JFrame {
     }//GEN-LAST:event_regHorActionPerformed
 
     private void consHorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consHorActionPerformed
-        System.out.println(Extras.getHora(rH_eD));
+        try {
+            CardLayout cl = (CardLayout) Contenido.getLayout();
+            cl.show(Contenido,"conHorario");
+            enableSelectedDays(conHorario);
+            setTitle("Consultar horario");
+            
+            HorariosController.createListaHorarios();
+            this.cH_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
+
+            showHorario(this.cH_comboHorarios.getSelectedIndex(),conHorario);
+            componentsEnableDisable(conHorario,false);
+            cH_editarHorario.setText("Editar");
+            cH_eliminarH.setVisible(true);
+            cH_comboHorarios.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_consHorActionPerformed
 
     private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
-        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setFileFilter( new FileNameExtensionFilter("*.txt", "txt"));
+        jf.setAcceptAllFileFilterUsed(false);
+        jf.showOpenDialog(this);
     }//GEN-LAST:event_cargarActionPerformed
 
     private void consAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consAsisActionPerformed
@@ -2116,11 +3341,12 @@ public class HOME extends javax.swing.JFrame {
         }
         if(ok == 5){
             try {
+                Empleado emp = new Empleado(rE_claveE.getText(),rE_nombre.getText(),rE_primerA.getText(),rE_segundoA.getText(),rE_curp.getText(),
+                                            fecha,rE_calle.getText(),rE_colonia.getText(),rE_nExterior.getText(),rE_nInterior.getText(),
+                                                    rE_status.getSelection().getActionCommand().charAt(0),rE_estado.getSelectedIndex()+1,rE_municipio.getSelectedIndex()+1,
+                                                    Integer.valueOf(rE_cPostal.getText()),null);
                 QuerysBD consulta = new QuerysBD();
-                _error = consulta.registrarEmpleado(rE_claveE.getText(),rE_nombre.getText(),rE_primerA.getText(),rE_segundoA.getText(),
-                                                    rE_curp.getText(),fecha,rE_calle.getText(),rE_colonia.getText(),
-                                                    rE_estado.getSelectedIndex()+1,rE_municipio.getSelectedIndex()+1,rE_nExterior.getText(),rE_nInterior.getText(),
-                                                    rE_cPostal.getText(),rE_status.getSelection().getActionCommand().charAt(0));
+                _error = consulta.registrarEmpleado(emp);
                 if(_error.equals("0")){
                     JOptionPane optionPane = new JOptionPane();
                     borrarDatosForm(regEmpleado.getComponents());
@@ -2180,70 +3406,58 @@ public class HOME extends javax.swing.JFrame {
             try {
                 cE1_error.setVisible(false);
                 QuerysBD consulta = new QuerysBD();
-                ResultSet rs = consulta.consultaEmpleado(cE1_claveE.getText());
-                if(rs.next()){
-                    horario = rs.getString(1);
-                    if(horario.equals("0")){ //NO EXISTE EL EMPLEADO
-                        JOptionPane optionPane = new JOptionPane();
-                        optionPane.showMessageDialog(null,"        No se encontró empleado con clave "+rE_claveE.getText()+"        "
-                                + "\n        Intente con una clave diferente        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        CardLayout cl = (CardLayout) Contenido.getLayout();
-                        cl.show(Contenido,"conHorarioE");
-                        cE_errorM.setVisible(false);
-                        
-                        cE_clave.setText(rs.getString(2));
-                        cE_clave.setEnabled(false);
-                        
-                        cE_nombre.setText(rs.getString(3));
-                        cE_nombre.setEnabled(false);
-                        
-                        cE_primerA.setText(rs.getString(4));
-                        cE_primerA.setEnabled(false);
-                        
-                        cE_segundoA.setText(rs.getString(5));
-                        cE_segundoA.setEnabled(false);
-                        
-                        cE_curp.setText(rs.getString(6));
-                        cE_curp.setEnabled(false);
-                        
-                        String fecha = Extras.flipDate(rs.getString(7));
-                        ((JTextField) cE_fecha.getDateEditor().getUiComponent()).setText(fecha);
-                        cE_fecha.setEnabled(false);
-                        
-                        cE_calle.setText(rs.getString(8));
-                        cE_calle.setEnabled(false);
-                        
-                        cE_colonia.setText(rs.getString(9));
-                        cE_colonia.setEnabled(false);
-                        
-                        int item = Integer.valueOf(rs.getString(10)) - 1;
-                        cE_estado.setSelectedIndex(item);
-                        cE_estado.setEnabled(false);
-                        
-                        estadoItemStateChanged(cE_municipio,item);
-                        cE_municipio.setSelectedIndex(Integer.valueOf(rs.getString(11))-1);
-                        cE_municipio.setEnabled(false);
-                        
-                        cE_nExterior.setText(rs.getString(12));
-                        cE_nExterior.setEnabled(false);
-                        
-                        cE_nInterior.setText(rs.getString(13));
-                        cE_nInterior.setEnabled(false);
-                        
-                        cE_cPostal.setText(rs.getString(14));
-                        cE_cPostal.setEnabled(false);
-                        
-                        if(rs.getString(15).equals("A")){
-                            cE_activo.setSelected(true);
-                        }else{
-                            cE_inactivo.setSelected(true);
-                        }
-                        cE_activo.setEnabled(false);
-                        cE_inactivo.setEnabled(false);
-                    }
+                empleado = consulta.consultaEmpleado(cE1_claveE.getText());
+                if(empleado.clave.equals("0")){
+                    JOptionPane optionPane = new JOptionPane();
+                    optionPane.showMessageDialog(null,"        No se encontró empleado con clave "+rE_claveE.getText()+"        "
+                                                    + "\n        Intente con una clave diferente        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    CardLayout cl = (CardLayout) Contenido.getLayout();
+                    cl.show(Contenido,"conHorarioE");
+                    cE_errorM.setVisible(false);
+                    cE_clave.setEnabled(false);
+
+                    cE_nombre.setEnabled(false);
+
+                    cE_primerA.setEnabled(false);
+
+                    cE_segundoA.setEnabled(false);
+
+                    cE_curp.setEnabled(false);
+
+                    cE_fecha.setEnabled(false);
+
+                    cE_calle.setEnabled(false);
+
+                    cE_colonia.setEnabled(false);
+
+                    cE_estado.setEnabled(false);
+
+                    cE_municipio.setEnabled(false);
+
+                    cE_nExterior.setEnabled(false);
+
+                    cE_nInterior.setEnabled(false);
+
+                    cE_cPostal.setEnabled(false);
+
+                    cE_activo.setEnabled(false);
+                    cE_inactivo.setEnabled(false);
                     
-                }//RESULT SET
+                    HorariosController.createListaHorarios();
+                    showEmpleado();
+                    
+                    if(empleado.horarioAsignado){
+                        CardLayout cl2 = (CardLayout) conHE.getLayout();
+                        cl2.show(conHE,"horAsignado");
+                        mostrarHorarioEmpleado();
+                        
+                    }else{
+                        CardLayout cl2 = (CardLayout) conHE.getLayout();
+                        cl2.show(conHE,"sinAsignar");
+                        cHE_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
+                    }
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2389,9 +3603,13 @@ public class HOME extends javax.swing.JFrame {
             cE_editarDatos.setText("Modificar");
         }else{
             if(cE_editarDatos.getText().equals("Modificar")){
-                desactivarModificarEmpleado();
-                cE_editarDatos.setText("Editar");
-            }
+                String fin = modificarEmpleado();
+                if(fin.equals("2")){
+                    cE_editarDatos.setText("Editar");
+                    desactivarModificarEmpleado(); 
+                    cE_errorM.setVisible(false);
+                }
+            }//FIN MODIFICAR
         }
         
     }//GEN-LAST:event_cE_editarDatosActionPerformed
@@ -2461,8 +3679,181 @@ public class HOME extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_rH_idHKeyTyped
+
+    private void rH_isL1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isL1ItemStateChanged
+       enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isL1ItemStateChanged
+
+    private void rH_isL1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rH_isL1StateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isL1StateChanged
+
+    private void rH_isM1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isM1ItemStateChanged
+       enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isM1ItemStateChanged
+
+    private void rH_isW1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isW1ItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isW1ItemStateChanged
+
+    private void rH_isJ1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isJ1ItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isJ1ItemStateChanged
+
+    private void rH_isV1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isV1ItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isV1ItemStateChanged
+
+    private void rH_isS1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isS1ItemStateChanged
+       enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isS1ItemStateChanged
+
+    private void rH_isD1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isD1ItemStateChanged
+        enableSpinner((JPanel)  ((JRadioButton)evt.getSource()).getParent());
+    }//GEN-LAST:event_rH_isD1ItemStateChanged
+
+    private void cH_editarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cH_editarHorarioActionPerformed
+        if(cH_editarHorario.getText().equals("Editar")){
+            cH_editarHorario.setText("Modificar");
+            cH_comboHorarios.setEnabled(false);
+            componentsEnableDisable(conHorario,true);
+            cH_eliminarH.setVisible(false);
+        }else{
+            if(cH_editarHorario.getText().equals("Modificar")){
+                //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ realizar cambios 
+                Horario hr = new Horario();
+                int item = cH_comboHorarios.getSelectedIndex();
+                hr.idHorario = HorariosController.listaNombres[item];
+                hr.setHorario(conHorario);
+                
+                if(hr.dias.length == 0){
+                    JOptionPane optionPane = new JOptionPane();
+                    optionPane.showMessageDialog(null,"        El horario debe contar con  almenos un día        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    try {
+                        QuerysBD consulta = new QuerysBD();
+                        consulta.cleanHorario(HorariosController.listaHorarios[item],hr);
+                        consulta.modificarHorario(hr);
+                        JOptionPane optionPane = new JOptionPane();
+                        optionPane.showMessageDialog(null,"        Se han realizado los cambios correctamente        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE);
+                        
+                        cH_editarHorario.setText("Editar");
+                        componentsEnableDisable(conHorario,false);
+                        cH_eliminarH.setVisible(true);
+                        cH_comboHorarios.setEnabled(true);
+                        HorariosController.createListaHorarios();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }//FIN DE CAMBIOS
+            }
+        }
+        
+    }//GEN-LAST:event_cH_editarHorarioActionPerformed
+
+    private void cH_eliminarHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cH_eliminarHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cH_eliminarHActionPerformed
+
+    private void rH_isL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rH_isL1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isL1ActionPerformed
+
+    private void cH_comboHorariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cH_comboHorariosItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+           int item = cH_comboHorarios.getSelectedIndex();
+            showHorario(item,conHorario);
+       }
+    }//GEN-LAST:event_cH_comboHorariosItemStateChanged
+
+    private void cHE_comboHorariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cHE_comboHorariosItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cHE_comboHorariosItemStateChanged
+
+    private void cHE_asignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cHE_asignarActionPerformed
+        try {
+            int item = cHE_comboHorarios.getSelectedIndex();
+            empleado.idHorario = HorariosController.listaNombres[item];
+            
+            QuerysBD consulta = new QuerysBD();
+            consulta.asignarHorario(empleado);
+            
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(null,"        Se asignó el horario correctamente        ", "    Finalizado", JOptionPane.ERROR_MESSAGE);
+            
+            CardLayout cl = (CardLayout) conHE.getLayout();
+            cl.show(conHE, "horAsignado");
+            mostrarHorarioEmpleado();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cHE_asignarActionPerformed
+
+    private void cHE_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cHE_removerActionPerformed
+        try {
+            QuerysBD consulta = new QuerysBD();
+            empleado.idHorario = null;
+            empleado.horarioAsignado=false;
+            
+            consulta.removerHorarioEmpleado(empleado.clave);
+            
+            CardLayout cl2 = (CardLayout) conHE.getLayout();
+            cl2.show(conHE,"sinAsignar");
+            cHE_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
+            
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(null,"        Se removió el horario correctamente        ", "    Finalizado", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cHE_removerActionPerformed
+
+    private void rH_isD3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isD3ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isD3ItemStateChanged
+
+    private void rH_isS2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isS2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isS2ItemStateChanged
+
+    private void rH_isV2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isV2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isV2ItemStateChanged
+
+    private void rH_isJ2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isJ2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isJ2ItemStateChanged
+
+    private void rH_isW2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isW2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isW2ItemStateChanged
+
+    private void rH_isM2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isM2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isM2ItemStateChanged
+
+    private void rH_isL2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rH_isL2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isL2ItemStateChanged
+
+    private void rH_isL2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rH_isL2StateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isL2StateChanged
+
+    private void rH_isL2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rH_isL2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rH_isL2ActionPerformed
+    private void mostrarHorarioEmpleado(){
+        int item = HorariosController.diccionario.get(empleado.idHorario);
+        //empleado.hr = HorariosController.listaHorarios[item];
+        
+        cHE_idHorario.setText(empleado.idHorario);
+        showHorario(item, horAsignado);
+        componentsEnableDisable(horAsignado,false);
+    }
     private void activarModificarEmpleado(){
-        cE_clave.setEnabled(true);
         cE_nombre.setEnabled(true);
         cE_primerA.setEnabled(true);
         cE_segundoA.setEnabled(true);
@@ -2524,6 +3915,20 @@ public class HOME extends javax.swing.JFrame {
 
         }//Recorre row de jpanel
     }
+    
+    public void componentsEnableDisable(JPanel card,boolean ON){
+        for(Component comp: card.getComponents()){
+            String className = comp.getClass().getName();
+            switch(className){
+                case "javax.swing.JPanel": componentsEnableDisable((JPanel) comp, ON); break;
+                case "javax.swing.JRadioButton": comp.setEnabled(ON);break;
+                case "javax.swing.JSpinner":comp.setEnabled(ON);break;
+                case "javax.swing.JTextField":comp.setEnabled(ON);break;
+                default: break;
+            }
+        }
+    }
+    
     public void enableSelectedDays(JPanel card){
         for(Component panel : card.getComponents()){
             
@@ -2532,7 +3937,108 @@ public class HOME extends javax.swing.JFrame {
             }//Busca los jpanel con los dias
         }
     }
-    public void creaObjHorario(JPanel panel){
+    public String modificarEmpleado(){
+        String fin = "";
+        int ok = 0; //ok == 4 so it updates the employee
+        String _error = "";
+        String fecha = ((JTextField) cE_fecha.getDateEditor().getUiComponent()).getText();
+        
+        if(!Extras.validarNumeros(cE_cPostal.getText(),5)){
+            _error = "        Ingrese un código postal válido.    ";
+        }else{
+            ok++;
+        }
+        if(!Extras.validarFormatoFecha(fecha)){
+            _error = "        ' "+fecha+"'" +" no es una fecha válida.    ";
+        }else{
+            ok++;
+            fecha = Extras.flipDate(fecha);
+        }
+        if(!Extras.validarCURP(cE_curp.getText())){
+            _error = "        La CURP ingresada no es válida.    ";
+        }else{
+            ok++;
+        }
+        if(Extras.isNull(cE_nombre.getText()) || Extras.isNull(cE_primerA.getText()) || Extras.isNull(cE_calle.getText()) || Extras.isNull(cE_colonia.getText()) || Extras.isNull(cE_nExterior.getText())){
+            _error = "        Asegurese de no dejar campos obligatorios vacíos.    "; 
+        }else{
+            ok++;
+        }
+        
+        if(ok == 4){
+            try {
+                empleado.cambiarDatos(cE_nombre.getText(),cE_primerA.getText(),cE_segundoA.getText(),cE_curp.getText(),
+                        fecha,cE_calle.getText(),cE_colonia.getText(),cE_nExterior.getText(),cE_nInterior.getText(),
+                        cE_status.getSelection().getActionCommand().charAt(0),
+                        cE_estado.getSelectedIndex()+1,
+                        cE_municipio.getSelectedIndex()+1,
+                        Integer.valueOf(cE_cPostal.getText()));
+                QuerysBD consulta = new QuerysBD();
+                fin = consulta.modificarEmpleado(empleado);
+                showEmpleado();
+                JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(null,"    Se han realizado los cambios    ", "    Finalizado", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane optionPane = new JOptionPane();
+	    optionPane.showMessageDialog(null,_error, "    ERROR!!", JOptionPane.ERROR_MESSAGE);
+            fin = "-1";
+        }
+        return fin;
+    }
+    
+    public void showEmpleado(){
+        cE_clave.setText(empleado.clave);
+        cE_nombre.setText(empleado.nombre);
+        cE_primerA.setText(empleado.primerA);
+        cE_segundoA.setText(empleado.segundoA);
+        cE_curp.setText(empleado.curp);
+        empleado.fecha = Extras.flipDate(empleado.fecha);
+        ((JTextField) cE_fecha.getDateEditor().getUiComponent()).setText(empleado.fecha);
+        cE_calle.setText(empleado.calle);
+        cE_colonia.setText(empleado.colonia);
+        cE_estado.setSelectedIndex(empleado.estado -1);
+        estadoItemStateChanged(cE_municipio,empleado.estado);
+        cE_municipio.setSelectedIndex(empleado.municipio-1);
+        cE_nExterior.setText(empleado.nExterior);
+        cE_nInterior.setText(empleado.nInterior);
+        cE_cPostal.setText(String.valueOf(empleado.cPostal));
+
+        if(empleado.estatus == 'A'){
+            cE_activo.setSelected(true);
+        }else{
+            cE_inactivo.setSelected(true);
+        }
+    }
+    
+    public void showHorario(int index,JPanel card){
+        Horario hr = HorariosController.listaHorarios[index];
+        
+        for(Component panel: card.getComponents()){
+            if(panel.getClass().getName().equals("javax.swing.JPanel")){
+                int dia = hr.diccionario.getOrDefault(((JPanel)panel).getName(),-1);
+                if(dia != -1){//SI EXISTE EN EL ARREGLO
+                    for(Component c: ((JPanel) panel).getComponents()){
+                        String className = c.getClass().getName();
+                        switch(className){
+                            case "javax.swing.JRadioButton":((JRadioButton) c).setSelected(true);break;
+                            case "javax.swing.JSpinner": if(c.getName().equals("entrada")){ Extras.setText(c, hr.dias[dia].entrada);}
+                                                         if(c.getName().equals("salida")){ Extras.setText(c, hr.dias[dia].salida);} break;
+                            default: break;
+                        }
+                    }
+                }else{
+                    for(Component c: ((JPanel) panel).getComponents()){
+                        if(c.getClass().getName().equals("javax.swing.JRadioButton")){
+                            ((JRadioButton) c).setSelected(false);
+                        }
+                    }
+                }
+            }//Busca los jpanel con los dias
+        }
+        enableSelectedDays(card);
     }
     /**
      * @param args the command line arguments
@@ -2564,16 +4070,25 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JTextField cE_primerA;
     private javax.swing.JTextField cE_segundoA;
     private javax.swing.ButtonGroup cE_status;
+    private javax.swing.JButton cHE_asignar;
+    private javax.swing.JComboBox<String> cHE_comboHorarios;
+    private javax.swing.JTextField cHE_idHorario;
+    private javax.swing.JButton cHE_remover;
+    private javax.swing.JComboBox<String> cH_comboHorarios;
+    private javax.swing.JButton cH_editarHorario;
+    private javax.swing.JButton cH_eliminarH;
     private javax.swing.JButton cargar;
     private javax.swing.JPanel conDatosE;
     private javax.swing.JPanel conEmpleado;
     private javax.swing.JPanel conHE;
+    private javax.swing.JPanel conHorario;
     private javax.swing.JPanel conHorarioE;
     private javax.swing.JTabbedPane conHorarioEd;
     private javax.swing.JButton consAsis;
     private javax.swing.JButton consEmp;
     private javax.swing.JButton consHor;
     private javax.swing.JButton consInci;
+    private javax.swing.JPanel horAsignado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2623,20 +4138,66 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField rE_cPostal;
     private javax.swing.JTextField rE_calle;
     private javax.swing.JTextField rE_claveE;
@@ -2654,31 +4215,77 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.ButtonGroup rE_status;
     private javax.swing.JButton rE_submit;
     private javax.swing.JSpinner rH_eD;
+    private javax.swing.JSpinner rH_eD1;
+    private javax.swing.JSpinner rH_eD2;
+    private javax.swing.JSpinner rH_eD3;
     private javax.swing.JSpinner rH_eJ;
+    private javax.swing.JSpinner rH_eJ1;
+    private javax.swing.JSpinner rH_eJ2;
     private javax.swing.JSpinner rH_eL;
+    private javax.swing.JSpinner rH_eL1;
+    private javax.swing.JSpinner rH_eL2;
     private javax.swing.JSpinner rH_eM;
+    private javax.swing.JSpinner rH_eM1;
+    private javax.swing.JSpinner rH_eM2;
     private javax.swing.JSpinner rH_eS;
+    private javax.swing.JSpinner rH_eS1;
+    private javax.swing.JSpinner rH_eS2;
     private javax.swing.JSpinner rH_eV;
+    private javax.swing.JSpinner rH_eV1;
+    private javax.swing.JSpinner rH_eV2;
     private javax.swing.JSpinner rH_eW;
+    private javax.swing.JSpinner rH_eW1;
+    private javax.swing.JSpinner rH_eW2;
     private javax.swing.JTextField rH_idH;
     private javax.swing.JRadioButton rH_isD;
+    private javax.swing.JRadioButton rH_isD1;
+    private javax.swing.JRadioButton rH_isD2;
+    private javax.swing.JRadioButton rH_isD3;
     private javax.swing.JRadioButton rH_isJ;
+    private javax.swing.JRadioButton rH_isJ1;
+    private javax.swing.JRadioButton rH_isJ2;
     private javax.swing.JRadioButton rH_isL;
+    private javax.swing.JRadioButton rH_isL1;
+    private javax.swing.JRadioButton rH_isL2;
     private javax.swing.JRadioButton rH_isM;
+    private javax.swing.JRadioButton rH_isM1;
+    private javax.swing.JRadioButton rH_isM2;
     private javax.swing.JRadioButton rH_isS;
+    private javax.swing.JRadioButton rH_isS1;
+    private javax.swing.JRadioButton rH_isS2;
     private javax.swing.JRadioButton rH_isV;
+    private javax.swing.JRadioButton rH_isV1;
+    private javax.swing.JRadioButton rH_isV2;
     private javax.swing.JRadioButton rH_isW;
+    private javax.swing.JRadioButton rH_isW1;
+    private javax.swing.JRadioButton rH_isW2;
     private javax.swing.JButton rH_registrar;
     private javax.swing.JSpinner rH_sD;
+    private javax.swing.JSpinner rH_sD1;
+    private javax.swing.JSpinner rH_sD2;
+    private javax.swing.JSpinner rH_sD3;
     private javax.swing.JSpinner rH_sJ;
+    private javax.swing.JSpinner rH_sJ1;
+    private javax.swing.JSpinner rH_sJ2;
     private javax.swing.JSpinner rH_sL;
+    private javax.swing.JSpinner rH_sL1;
+    private javax.swing.JSpinner rH_sL2;
     private javax.swing.JSpinner rH_sM;
+    private javax.swing.JSpinner rH_sM1;
+    private javax.swing.JSpinner rH_sM2;
     private javax.swing.JSpinner rH_sS;
+    private javax.swing.JSpinner rH_sS1;
+    private javax.swing.JSpinner rH_sS2;
     private javax.swing.JSpinner rH_sV;
+    private javax.swing.JSpinner rH_sV1;
+    private javax.swing.JSpinner rH_sV2;
     private javax.swing.JSpinner rH_sW;
+    private javax.swing.JSpinner rH_sW1;
+    private javax.swing.JSpinner rH_sW2;
     private javax.swing.JButton regEmp;
     private javax.swing.JPanel regEmpleado;
     private javax.swing.JButton regHor;
     private javax.swing.JPanel regHorario;
+    private javax.swing.JPanel sinAsignar;
     // End of variables declaration//GEN-END:variables
 }
