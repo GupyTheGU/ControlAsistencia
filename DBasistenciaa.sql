@@ -64,6 +64,7 @@ CREATE TABLE tipoinOut(
 	descr		VARCHAR(8) NOT NULL,
 	PRIMARY KEY(tipoES)
 );
+#DROP TABLE asistencias
 CREATE TABLE asistencias(
 	idAsist		INT UNSIGNED AUTO_INCREMENT,
 	idEmp			INT UNSIGNED NOT NULL,
@@ -73,9 +74,9 @@ CREATE TABLE asistencias(
 	idInci		DECIMAL(1,0) DEFAULT NULL,
 	NoBiom		INT UNSIGNED NOT NULL,
 	PRIMARY KEY (idAsist),
-	FOREIGN KEY (idEmp) REFERENCES empleados(idEmp),
-	FOREIGN KEY (idInci) REFERENCES incidencias(idInci),
-	FOREIGN KEY (tipoES) REFERENCES tipoinOut(tipoES)
+	FOREIGN KEY (idEmp) REFERENCES empleados(idEmp) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idInci) REFERENCES incidencias(idInci) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (tipoES) REFERENCES tipoinOut(tipoES)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -89,7 +90,7 @@ alter table empleados
 ## Creacion de FK horario -> empleado;
 alter table empleados
 	add foreign key(idHorario)
-	REFERENCES horario(idHorario) ON DELETE CASCADE ON UPDATE CASCADE;
+	REFERENCES horario(idHorario) ON DELETE SET NULL ON UPDATE CASCADE;
 	#DESCRIBE rel_ProfAlmn;
 	
 ## Creacion de FK empleado -> asistencias;
@@ -342,6 +343,16 @@ BEGIN
 END$$
 delimiter ;
 
+#drop procedure if exists sp_conIncidencias;
+delimiter $$
+CREATE PROCEDURE sp_conIncidencias (IN clave INT UNSIGNED)
+BEGIN
+	
+	SELECT asistencias.FechaAsis,asistencias.horaReg,tipoinout.descr,incidencias.descr, asistencias.NoBiom FROM incidencias INNER JOIN  asistencias INNER JOIN tipoinout 
+			WHERE incidencias.idInci = asistencias.idInci AND tipoinout.tipoES = asistencias.tipoES AND asistencias.idEmp = clave AND asistencias.idInci > 0;
+END$$
+delimiter ;
+
 #DROP VIEW if EXISTS getNumeroHorarios;
 USE controlasistencia;
 CREATE VIEW getNumeroHorarios AS (SELECT COUNT(*) FROM horario);
@@ -352,6 +363,8 @@ CALL sp_modificaHorario("Matutino 2A", 3, "08:51", "13:24");
 CALL sp_modificaHorario("Matutino 2A", 5, "08:51", "13:24");
 #_____________________________________________________________________________view
 
+SELECT asistencias.FechaAsis,asistencias.horaReg,tipoinout.descr,incidencias.descr, asistencias.NoBiom FROM incidencias INNER JOIN  asistencias INNER JOIN tipoinout 
+			WHERE incidencias.idInci = asistencias.idInci AND tipoinout.tipoES = asistencias.tipoES AND asistencias.idEmp = 201409013 AND asistencias.idInci > 0;
 (SELECT COUNT(*) FROM asistencias WHERE idEmp=201409013 AND FechaAsis='2020-07-04' AND horaReg = "04:13:24" AND tipoES = 1 AND idInci = 2 AND NoBiom = 9);
 SELECT * FROM empleados;
 SELECT * FROM getNumeroHorarios;

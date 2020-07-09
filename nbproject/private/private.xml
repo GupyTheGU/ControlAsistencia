@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/HOME.java</file>
-            <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/Horario.java</file>
+            <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/MRAsistencia.java</file>
             <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/Extras.java</file>
+            <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/modeloTabla.java</file>
+            <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/Asistencia.java</file>
             <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/QuerysBD.java</file>
-            <file>file:/C:/Users/BB_TLACUACHE/Documents/NetBeansProjects/ControlAsistencia/src/controlasistencia/HorariosController.java</file>
         </group>
     </open-files>
 </project-private>
