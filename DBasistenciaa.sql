@@ -53,14 +53,32 @@ CREATE TABLE dia(
 	PRIMARY KEY (idDia)
 );
 
+CREATE TABLE incidencias(
+	idInci		DECIMAL(1,0) NOT NULL,
+	descr			VARCHAR(14) NOT NULL,
+	PRIMARY KEY(idInci)
+);
+
+CREATE TABLE tipoinOut(
+	tipoES	DECIMAL(1,0) NOT NULL,
+	descr		VARCHAR(8) NOT NULL,
+	PRIMARY KEY(tipoES)
+);
 CREATE TABLE asistencias(
 	idAsist		INT UNSIGNED AUTO_INCREMENT,
 	idEmp			INT UNSIGNED NOT NULL,
-	FechaAsis	 DATE NOT NULL,
-	tipo			 DECIMAL(1,0) NOT NULL,
+	FechaAsis	DATE NOT NULL,
+	horaReg		VARCHAR(8) NOT NULL, 
+	tipoES		DECIMAL(1,0) NOT NULL,
+	idInci		DECIMAL(1,0) DEFAULT NULL,
 	NoBiom		INT UNSIGNED NOT NULL,
-	PRIMARY KEY (idAsist)
+	PRIMARY KEY (idAsist),
+	FOREIGN KEY (idEmp) REFERENCES empleados(idEmp),
+	FOREIGN KEY (idInci) REFERENCES incidencias(idInci),
+	FOREIGN KEY (tipoES) REFERENCES tipoinOut(tipoES)
 );
+
+
 
 ## Creacion de FK detalleEmpleado -> empleado;
 alter table empleados
@@ -101,6 +119,14 @@ INSERT INTO dia (idDia,diaDesc) VALUES (4,"JUEVES");
 INSERT INTO dia (idDia,diaDesc) VALUES (5,"VIERNES");
 INSERT INTO dia (idDia,diaDesc) VALUES (6,"SÁBADO");
 INSERT INTO dia (idDia,diaDesc) VALUES (7,"DOMINGO"); 
+
+INSERT INTO incidencias(idInci,descr) VALUES (0,"EN HORARIO");
+INSERT INTO incidencias(idInci,descr) VALUES (1,"RETARDO MENOR");
+INSERT INTO incidencias(idInci,descr) VALUES (2,"RETARDO MAYOR");
+INSERT INTO incidencias(idInci,descr) VALUES (3,"INASISTENCIA");
+
+INSERT INTO tipoinout(tipoES,descr)VALUES(1,"ENTRADA");
+INSERT INTO tipoinout(tipoES,descr)VALUES(2,"SALIDA");
 #SELECT * FROM empleados INNER JOIN detalleEmpleado WHERE detalleEmpleado.idDatos = empleados.idDatos;
 ############################################################################################################################
 ## para resultados   0-no existe | -1-existe_ej_exito | -2-existe pero no se puede ejecutar
@@ -277,16 +303,63 @@ BEGIN
 	UPDATE empleados SET idHorario=NULL WHERE idEmp = num;
 END$$
 delimiter ;
-#_____________________________________________________________________________view
+
+#drop procedure if exists sp_eliminarEmpleado;
+delimiter $$
+CREATE PROCEDURE sp_eliminarEmpleado (IN num INT UNSIGNED)
+BEGIN
+	DELETE FROM empleados WHERE idEmp = num;
+END$$
+delimiter ;
+
+#drop procedure if exists sp_eliminarHorario;
+delimiter $$
+CREATE PROCEDURE sp_eliminarHorario (IN nombre VARCHAR(30))
+BEGIN
+	DELETE FROM horario WHERE horario.idHorario = nombre;
+END$$
+delimiter ;
+
+#drop procedure if exists sp_altaAsistencia ;
+delimiter $$
+CREATE PROCEDURE sp_altaAsistencia (IN clave INT UNSIGNED, in fecha DATE, in hora VARCHAR(8), in ES DECIMAL(1,0), in inci DECIMAL(1,0),IN lector INT UNSIGNED)
+BEGIN
+	DECLARE existe INT UNSIGNED DEFAULT 0;
+	SET existe = (SELECT COUNT(*) FROM asistencias WHERE idEmp=clave AND FechaAsis=fecha AND horaReg = hora AND tipoES = ES AND idInci = inci AND NoBiom = lector);
+	if existe = 0 then
+		INSERT INTO asistencias (idEmp,FechaAsis,horaReg,tipoES,idInci,NoBiom) VALUES (clave,fecha,hora,ES,inci,lector);
+	END if;
+END$$
+delimiter ;
+
+#drop procedure if exists sp_conAsistenciasFecha;
+delimiter $$
+CREATE PROCEDURE sp_conAsistenciasFecha (IN clave INT UNSIGNED, in fecha DATE)
+BEGIN
+	
+	SELECT asistencias.FechaAsis,asistencias.horaReg,tipoinout.descr,incidencias.descr, asistencias.NoBiom FROM incidencias INNER JOIN  asistencias INNER JOIN tipoinout 
+			WHERE incidencias.idInci = asistencias.idInci AND tipoinout.tipoES = asistencias.tipoES AND asistencias.idEmp = clave AND asistencias.FechaAsis=fecha;
+END$$
+delimiter ;
 
 #DROP VIEW if EXISTS getNumeroHorarios;
-SELECT * FROM empleados INNER JOIN detalleempleado WHERE empleados.idDatos = detalleempleado.idDatos;
 USE controlasistencia;
 CREATE VIEW getNumeroHorarios AS (SELECT COUNT(*) FROM horario);
+
+CALL sp_registraHorario("Matutino 2A");
+CALL sp_modificaHorario("Matutino 2A", 1, "12:07", "15:24");
+CALL sp_modificaHorario("Matutino 2A", 3, "08:51", "13:24");
+CALL sp_modificaHorario("Matutino 2A", 5, "08:51", "13:24");
+#_____________________________________________________________________________view
+
+(SELECT COUNT(*) FROM asistencias WHERE idEmp=201409013 AND FechaAsis='2020-07-04' AND horaReg = "04:13:24" AND tipoES = 1 AND idInci = 2 AND NoBiom = 9);
+SELECT * FROM empleados;
 SELECT * FROM getNumeroHorarios;
 SELECT * FROM horario;
 SELECT * FROM jornada;
 DELETE  FROM jornada;
+select * FROM asistencias;
+SELECT * FROM tipoinout;
 CALL sp_getHorario("hola");
 CALL sp_registrarJornada(1,"04:23","04:23",@outJornada);
 CALL sp_modificaHorario("hola", 1, "04:28", "04:28")
@@ -294,3 +367,4 @@ CALL sp_modificaHorario("hola", 1, "04:28", "04:28")
 SELECT idDatos FROM empleados WHERE empleados.idEmp = 201409013;
 CALL sp_consultaEmpleado(201409013);
 SELECT * FROM relhorariojornada INNER JOIN jornada WHERE relhorariojornada.idJornada = jornada.idJornada;
+SELECT * FROM empleados INNER JOIN detalleempleado WHERE empleados.idDatos = detalleempleado.idDatos;

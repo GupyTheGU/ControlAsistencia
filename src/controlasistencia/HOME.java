@@ -11,8 +11,11 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -42,6 +45,8 @@ public class HOME extends javax.swing.JFrame {
     Fonts fts;
     boolean activeEmpleado=false;
     Empleado empleado=null;
+    MRAsistencia mr= new MRAsistencia();
+    modeloTabla model;
     
     /**
      * Creates new form HOME
@@ -297,6 +302,30 @@ public class HOME extends javax.swing.JFrame {
         cH_editarHorario = new javax.swing.JButton();
         cH_comboHorarios = new javax.swing.JComboBox<>();
         cH_eliminarH = new javax.swing.JButton();
+        regAsis = new javax.swing.JPanel();
+        jLabel71 = new javax.swing.JLabel();
+        rA_path = new javax.swing.JTextField();
+        jLabel83 = new javax.swing.JLabel();
+        rA_alta = new javax.swing.JButton();
+        rA_nombreA = new javax.swing.JTextField();
+        jLabel84 = new javax.swing.JLabel();
+        conAsis = new javax.swing.JPanel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        cA_consultar = new javax.swing.JButton();
+        cA_clave = new javax.swing.JTextField();
+        cA_fecha = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        model = new modeloTabla();
+        cA_tabla = new javax.swing.JTable();
+        conInci = new javax.swing.JPanel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        cI_consultar = new javax.swing.JButton();
+        cI_clave = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        model = new modeloTabla();
+        cI_tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control de asistencia");
@@ -633,6 +662,7 @@ public class HOME extends javax.swing.JFrame {
         rE_status.add(jRadioButton1);
         jRadioButton1.setFont(fts.PTSans_Regular_12);
         jRadioButton1.setForeground(new java.awt.Color(52, 46, 55));
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Activo");
         jRadioButton1.setActionCommand("A");
         jRadioButton1.setOpaque(false);
@@ -3029,6 +3059,256 @@ public class HOME extends javax.swing.JFrame {
 
         Contenido.add(conHorario, "conHorario");
 
+        regAsis.setBackground(new java.awt.Color(52, 46, 55));
+
+        jLabel71.setBackground(new java.awt.Color(119, 47, 91));
+        jLabel71.setFont(fts.OswaldLight);
+        jLabel71.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel71.setText("                        Registro de asistencias");
+        jLabel71.setOpaque(true);
+        jLabel71.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        rA_path.setEditable(false);
+        rA_path.setBackground(new java.awt.Color(119, 47, 91));
+        rA_path.setFont(fts.PTSans_Regular_12);
+        rA_path.setForeground(new java.awt.Color(224, 224, 226));
+        rA_path.setEnabled(false);
+        rA_path.setOpaque(false);
+
+        jLabel83.setFont(fts.PTSans_Regular_12);
+        jLabel83.setForeground(new java.awt.Color(209, 87, 129));
+        jLabel83.setText("Archivo TXT:");
+
+        rA_alta.setBackground(new java.awt.Color(52, 46, 55));
+        rA_alta.setFont(fts.PTSans_Bold);
+        rA_alta.setForeground(new java.awt.Color(224, 224, 226));
+        rA_alta.setText("Registrar");
+        rA_alta.addMouseListener(MaterialUIMovement.getMovement( rA_alta,new java.awt.Color(119,47,91) ));
+        rA_alta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(119, 47, 91), 2));
+        rA_alta.setPreferredSize(new java.awt.Dimension(165, 33));
+        rA_alta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rA_altaActionPerformed(evt);
+            }
+        });
+
+        rA_nombreA.setEditable(false);
+        rA_nombreA.setBackground(new java.awt.Color(119, 47, 91));
+        rA_nombreA.setFont(fts.PTSans_Regular_12);
+        rA_nombreA.setForeground(new java.awt.Color(224, 224, 226));
+        rA_nombreA.setEnabled(false);
+        rA_nombreA.setOpaque(false);
+        rA_nombreA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rA_nombreAActionPerformed(evt);
+            }
+        });
+
+        jLabel84.setFont(fts.PTSans_Regular_12);
+        jLabel84.setForeground(new java.awt.Color(209, 87, 129));
+        jLabel84.setText("Ruta:");
+
+        javax.swing.GroupLayout regAsisLayout = new javax.swing.GroupLayout(regAsis);
+        regAsis.setLayout(regAsisLayout);
+        regAsisLayout.setHorizontalGroup(
+            regAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(regAsisLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(regAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(regAsisLayout.createSequentialGroup()
+                        .addGroup(regAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rA_path, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(regAsisLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rA_alta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(80, 80, 80))
+                    .addGroup(regAsisLayout.createSequentialGroup()
+                        .addGroup(regAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rA_nombreA, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(regAsisLayout.createSequentialGroup()
+                                .addGap(348, 348, 348)
+                                .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        regAsisLayout.setVerticalGroup(
+            regAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(regAsisLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel83)
+                .addGap(18, 18, 18)
+                .addComponent(rA_nombreA, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel84)
+                .addGap(18, 18, 18)
+                .addComponent(rA_path, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(rA_alta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(310, Short.MAX_VALUE))
+        );
+
+        Contenido.add(regAsis, "regAsis");
+
+        conAsis.setBackground(new java.awt.Color(52, 46, 55));
+
+        jLabel85.setBackground(new java.awt.Color(119, 47, 91));
+        jLabel85.setFont(fts.OswaldLight);
+        jLabel85.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel85.setText("                       Consulta de asistencias");
+        jLabel85.setOpaque(true);
+        jLabel85.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel86.setFont(fts.PTSans_Regular_12);
+        jLabel86.setForeground(new java.awt.Color(209, 87, 129));
+        jLabel86.setText("Clave de empleado");
+
+        cA_consultar.setBackground(new java.awt.Color(52, 46, 55));
+        cA_consultar.setFont(fts.PTSans_Bold);
+        cA_consultar.setForeground(new java.awt.Color(224, 224, 226));
+        cA_consultar.setText("Consultar");
+        cA_consultar.addMouseListener(MaterialUIMovement.getMovement( cA_consultar,new java.awt.Color(119,47,91) ));
+        cA_consultar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(119, 47, 91), 2));
+        cA_consultar.setPreferredSize(new java.awt.Dimension(165, 33));
+        cA_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cA_consultarActionPerformed(evt);
+            }
+        });
+
+        cA_clave.setFont(fts.PTSans_Regular_12);
+        cA_clave.setForeground(new java.awt.Color(52, 46, 55));
+        cA_clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cA_claveKeyTyped(evt);
+            }
+        });
+
+        cA_fecha.setBackground(new java.awt.Color(51, 204, 0));
+        cA_fecha.setForeground(new java.awt.Color(224, 224, 226));
+        cA_fecha.setDateFormatString("dd-MM-yyyy");
+        cA_fecha.setFont(fts.PTSans_Regular_12);
+        cA_fecha.setName("cA_fecha"); // NOI18N
+
+        cA_tabla.setFont(fts.PTSans_Regular_12);
+        cA_tabla.setModel(model);
+        jScrollPane1.setViewportView(cA_tabla);
+
+        javax.swing.GroupLayout conAsisLayout = new javax.swing.GroupLayout(conAsis);
+        conAsis.setLayout(conAsisLayout);
+        conAsisLayout.setHorizontalGroup(
+            conAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conAsisLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(conAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(conAsisLayout.createSequentialGroup()
+                        .addGap(348, 348, 348)
+                        .addComponent(jLabel85, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(conAsisLayout.createSequentialGroup()
+                        .addComponent(cA_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(cA_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(cA_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        conAsisLayout.setVerticalGroup(
+            conAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conAsisLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel85, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel86)
+                .addGap(18, 18, 18)
+                .addGroup(conAsisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cA_clave)
+                    .addComponent(cA_consultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cA_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
+
+        Contenido.add(conAsis, "conAsis");
+
+        conInci.setBackground(new java.awt.Color(52, 46, 55));
+
+        jLabel87.setBackground(new java.awt.Color(119, 47, 91));
+        jLabel87.setFont(fts.OswaldLight);
+        jLabel87.setForeground(new java.awt.Color(224, 224, 226));
+        jLabel87.setText("                       Consulta de Incidencias");
+        jLabel87.setOpaque(true);
+        jLabel87.setPreferredSize(new java.awt.Dimension(391, 52));
+
+        jLabel88.setFont(fts.PTSans_Regular_12);
+        jLabel88.setForeground(new java.awt.Color(209, 87, 129));
+        jLabel88.setText("Clave de empleado");
+
+        cI_consultar.setBackground(new java.awt.Color(52, 46, 55));
+        cI_consultar.setFont(fts.PTSans_Bold);
+        cI_consultar.setForeground(new java.awt.Color(224, 224, 226));
+        cI_consultar.setText("Consultar");
+        cI_consultar.addMouseListener(MaterialUIMovement.getMovement( cI_consultar,new java.awt.Color(119,47,91) ));
+        cI_consultar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(119, 47, 91), 2));
+        cI_consultar.setPreferredSize(new java.awt.Dimension(165, 33));
+        cI_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cI_consultarActionPerformed(evt);
+            }
+        });
+
+        cI_clave.setFont(fts.PTSans_Regular_12);
+        cI_clave.setForeground(new java.awt.Color(52, 46, 55));
+        cI_clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cI_claveKeyTyped(evt);
+            }
+        });
+
+        cI_tabla.setFont(fts.PTSans_Regular_12);
+        cI_tabla.setModel(model);
+        jScrollPane2.setViewportView(cI_tabla);
+
+        javax.swing.GroupLayout conInciLayout = new javax.swing.GroupLayout(conInci);
+        conInci.setLayout(conInciLayout);
+        conInciLayout.setHorizontalGroup(
+            conInciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conInciLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(conInciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(conInciLayout.createSequentialGroup()
+                        .addGap(348, 348, 348)
+                        .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(conInciLayout.createSequentialGroup()
+                        .addComponent(cI_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(252, 252, 252)
+                        .addComponent(cI_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        conInciLayout.setVerticalGroup(
+            conInciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conInciLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel88)
+                .addGap(18, 18, 18)
+                .addGroup(conInciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cI_clave)
+                    .addComponent(cI_consultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
+
+        Contenido.add(conInci, "conInci");
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
@@ -3136,30 +3416,51 @@ public class HOME extends javax.swing.JFrame {
             
             HorariosController.createListaHorarios();
             this.cH_comboHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(HorariosController.listaNombres));
-
-            showHorario(this.cH_comboHorarios.getSelectedIndex(),conHorario);
-            componentsEnableDisable(conHorario,false);
-            cH_editarHorario.setText("Editar");
-            cH_eliminarH.setVisible(true);
-            cH_comboHorarios.setEnabled(true);
+            if(HorariosController.listaHorarios.length>0){
+                showHorario(this.cH_comboHorarios.getSelectedIndex(),conHorario);
+                componentsEnableDisable(conHorario,false);
+                cH_editarHorario.setText("Editar");
+                cH_eliminarH.setVisible(true);
+                cH_comboHorarios.setEnabled(true);
+            }else{
+                showHorario(this.cH_comboHorarios.getSelectedIndex(),conHorario);
+                componentsEnableDisable(conHorario,false);
+                cH_editarHorario.setText("Editar");
+                JOptionPane optionPane = new JOptionPane();
+                    optionPane.showMessageDialog(null,"        NO existen horarios existentes        ", "    ERROR!!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_consHorActionPerformed
 
     private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        cl.show(Contenido, "regAsis");
+        setTitle("Registrar asistencias");
         JFileChooser jf = new JFileChooser();
         jf.setFileFilter( new FileNameExtensionFilter("*.txt", "txt"));
         jf.setAcceptAllFileFilterUsed(false);
         jf.showOpenDialog(this);
+        mr.archivo = jf.getSelectedFile();
+        if(mr.archivo!=null){
+            rA_path.setText(mr.archivo.getAbsolutePath());
+            rA_nombreA.setText(mr.archivo.getName());
+        }
+        
     }//GEN-LAST:event_cargarActionPerformed
 
     private void consAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consAsisActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        cl.show(Contenido,"conAsis");
+        setTitle("Consultar asistencias");
     }//GEN-LAST:event_consAsisActionPerformed
 
     private void consInciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consInciActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Contenido.getLayout();
+        cl.show(Contenido,"conInci");
+        setTitle("Consultar incidencias");
     }//GEN-LAST:event_consInciActionPerformed
 
     private void rE_claveEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rE_claveEActionPerformed
@@ -3355,7 +3656,7 @@ public class HOME extends javax.swing.JFrame {
                 }else{
                     JOptionPane optionPane = new JOptionPane();
                     optionPane.showMessageDialog(null,"        Ya existe un empleado con clave "+rE_claveE.getText()+"        "
-                            + "\n        Intente con una clave diferente        ", "    Finalizado", JOptionPane.INFORMATION_MESSAGE);
+                            + "\n        Intente con una clave diferente        ", "    ERROR!!", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
@@ -3594,7 +3895,21 @@ public class HOME extends javax.swing.JFrame {
     }//GEN-LAST:event_cE_estadoItemStateChanged
 
     private void cE_eliminarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_eliminarEActionPerformed
-        // TODO add your handling code here:
+        try {
+            int opc = JOptionPane.showOptionDialog(this, "        ¿Realmente desea eliminar el empleado?        ","        Confirmar",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            new Object[] { "Yes", "No" }, JOptionPane.YES_OPTION);
+            
+            if(opc == JOptionPane.YES_OPTION){
+                QuerysBD consulta = new QuerysBD();
+
+                consulta.eliminarEmpleado(cE1_claveE.getText());
+                consEmpActionPerformed(evt);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cE_eliminarEActionPerformed
 
     private void cE_editarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE_editarDatosActionPerformed
@@ -3663,6 +3978,8 @@ public class HOME extends javax.swing.JFrame {
                     String rs = consulta.registrarHorario(rH_idH.getText());
                     if(rs.equals("0")){
                         consulta.modificarHorario(hr);
+                        JOptionPane optionPane = new JOptionPane();
+                       optionPane.showMessageDialog(null,"        El horario se ha registrado correctamente        ", "    Finalizado", JOptionPane.ERROR_MESSAGE); 
                     }else{
                        JOptionPane optionPane = new JOptionPane();
                        optionPane.showMessageDialog(null,"        Ya existe un horario con el ID ingresado        ", "    EROOR!!", JOptionPane.ERROR_MESSAGE); 
@@ -3753,7 +4070,24 @@ public class HOME extends javax.swing.JFrame {
     }//GEN-LAST:event_cH_editarHorarioActionPerformed
 
     private void cH_eliminarHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cH_eliminarHActionPerformed
-        // TODO add your handling code here:
+        try {
+            int opc = JOptionPane.showOptionDialog(this, "        ¿Realmente desea eliminar el horario?        ","        Confirmar",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            new Object[] { "Yes", "No" }, JOptionPane.YES_OPTION);
+            
+            if(opc == JOptionPane.YES_OPTION){
+                int item = cH_comboHorarios.getSelectedIndex();
+                String idHorario = HorariosController.listaHorarios[item].idHorario;
+                QuerysBD consulta = new QuerysBD();
+
+                consulta.eliminarHorario(idHorario);
+                consHorActionPerformed(evt);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_cH_eliminarHActionPerformed
 
     private void rH_isL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rH_isL1ActionPerformed
@@ -3845,6 +4179,101 @@ public class HOME extends javax.swing.JFrame {
     private void rH_isL2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rH_isL2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rH_isL2ActionPerformed
+
+    private void rA_altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rA_altaActionPerformed
+       if(Extras.isNull(rA_path.getText())){
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(null,"        Seleccione un archivo        ", "    ERROR!!", JOptionPane.ERROR_MESSAGE);
+       }else{
+           try {
+                mr= new MRAsistencia();
+                mr.setAsistencias();
+                JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(null,"        Los registros de asistencia se han dado de alta correctamente        ", "    Finalizado", JOptionPane.ERROR_MESSAGE);
+           } catch (FileNotFoundException ex) {
+               Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (ParseException ex) {
+               Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+               Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+    }//GEN-LAST:event_rA_altaActionPerformed
+
+    private void cA_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cA_consultarActionPerformed
+        int ok = 0;
+        String _error = null;
+        model = null;
+        String fecha = ((JTextField) cA_fecha.getDateEditor().getUiComponent()).getText();
+        if(!Extras.validarNumeros(cA_clave.getText(),9)){
+            _error = "        Ingrese un código postal válido.    ";
+        }else{
+            ok++;
+        }
+        if(!Extras.validarFormatoFecha(fecha)){
+            _error = "        ' "+fecha+"'" +" no es una fecha válida.    ";
+        }else{
+            ok++;
+            fecha = Extras.flipDate(fecha);
+        }
+        
+        if(ok==2){
+            try {
+                QuerysBD consulta = new QuerysBD();
+                model = consulta.consultarAsisFecha(cA_clave.getText(), fecha);
+                
+                cA_tabla.setModel(model);
+                model.fireTableDataChanged();
+            } catch (SQLException ex) {
+                Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane optionPane = new JOptionPane();
+	    optionPane.showMessageDialog(null,_error, "    ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_cA_consultarActionPerformed
+
+    private void rA_nombreAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rA_nombreAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rA_nombreAActionPerformed
+
+    private void cA_claveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cA_claveKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c>'9'||cA_clave.getText().length() > 8){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cA_claveKeyTyped
+
+    private void cI_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cI_consultarActionPerformed
+        model = null;
+        String _error = "";
+
+        if(!Extras.validarNumeros(cI_clave.getText(),9)){
+            _error = "        Ingrese una clave de empleado válida    ";
+            JOptionPane optionPane = new JOptionPane();
+	    optionPane.showMessageDialog(null,_error, "    ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+        }
+        
+            try {
+                QuerysBD consulta = new QuerysBD();
+                model = consulta.consultarIncidencias(cI_clave.getText());
+                
+                cI_tabla.setModel(model);
+                model.fireTableDataChanged();
+            } catch (SQLException ex) {
+                Logger.getLogger(HOME.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_cI_consultarActionPerformed
+
+    private void cI_claveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cI_claveKeyTyped
+        char c = evt.getKeyChar();
+        if (c<'0' || c>'9'||cI_clave.getText().length() > 8){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cI_claveKeyTyped
     private void mostrarHorarioEmpleado(){
         int item = HorariosController.diccionario.get(empleado.idHorario);
         //empleado.hr = HorariosController.listaHorarios[item];
@@ -4014,31 +4443,37 @@ public class HOME extends javax.swing.JFrame {
     }
     
     public void showHorario(int index,JPanel card){
-        Horario hr = HorariosController.listaHorarios[index];
+        if(HorariosController.listaHorarios.length > 0){
+            Horario hr = HorariosController.listaHorarios[index];
         
-        for(Component panel: card.getComponents()){
-            if(panel.getClass().getName().equals("javax.swing.JPanel")){
-                int dia = hr.diccionario.getOrDefault(((JPanel)panel).getName(),-1);
-                if(dia != -1){//SI EXISTE EN EL ARREGLO
-                    for(Component c: ((JPanel) panel).getComponents()){
-                        String className = c.getClass().getName();
-                        switch(className){
-                            case "javax.swing.JRadioButton":((JRadioButton) c).setSelected(true);break;
-                            case "javax.swing.JSpinner": if(c.getName().equals("entrada")){ Extras.setText(c, hr.dias[dia].entrada);}
-                                                         if(c.getName().equals("salida")){ Extras.setText(c, hr.dias[dia].salida);} break;
-                            default: break;
+            for(Component panel: card.getComponents()){
+                if(panel.getClass().getName().equals("javax.swing.JPanel")){
+                    int dia = hr.diccionario.getOrDefault(((JPanel)panel).getName(),-1);
+                    if(dia != -1){//SI EXISTE EN EL ARREGLO
+                        for(Component c: ((JPanel) panel).getComponents()){
+                            String className = c.getClass().getName();
+                            switch(className){
+                                case "javax.swing.JRadioButton":((JRadioButton) c).setSelected(true);break;
+                                case "javax.swing.JSpinner": if(c.getName().equals("entrada")){ Extras.setText(c, hr.dias[dia].entrada);}
+                                                             if(c.getName().equals("salida")){ Extras.setText(c, hr.dias[dia].salida);} break;
+                                default: break;
+                            }
+                        }
+                    }else{
+                        for(Component c: ((JPanel) panel).getComponents()){
+                            if(c.getClass().getName().equals("javax.swing.JRadioButton")){
+                                ((JRadioButton) c).setSelected(false);
+                            }
                         }
                     }
-                }else{
-                    for(Component c: ((JPanel) panel).getComponents()){
-                        if(c.getClass().getName().equals("javax.swing.JRadioButton")){
-                            ((JRadioButton) c).setSelected(false);
-                        }
-                    }
-                }
-            }//Busca los jpanel con los dias
+                }//Busca los jpanel con los dias
+            }
+            enableSelectedDays(card);
+        }else{
+            cH_editarHorario.setVisible(false);
+            cH_eliminarH.setVisible(false);
         }
-        enableSelectedDays(card);
+        
     }
     /**
      * @param args the command line arguments
@@ -4048,6 +4483,10 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JPanel Contenido;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel bienvenido;
+    private javax.swing.JTextField cA_clave;
+    private javax.swing.JButton cA_consultar;
+    private com.toedter.calendar.JDateChooser cA_fecha;
+    private javax.swing.JTable cA_tabla;
     private javax.swing.JButton cE1_buscar;
     private javax.swing.JTextField cE1_claveE;
     private javax.swing.JLabel cE1_error;
@@ -4077,13 +4516,18 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cH_comboHorarios;
     private javax.swing.JButton cH_editarHorario;
     private javax.swing.JButton cH_eliminarH;
+    private javax.swing.JTextField cI_clave;
+    private javax.swing.JButton cI_consultar;
+    private javax.swing.JTable cI_tabla;
     private javax.swing.JButton cargar;
+    private javax.swing.JPanel conAsis;
     private javax.swing.JPanel conDatosE;
     private javax.swing.JPanel conEmpleado;
     private javax.swing.JPanel conHE;
     private javax.swing.JPanel conHorario;
     private javax.swing.JPanel conHorarioE;
     private javax.swing.JTabbedPane conHorarioEd;
+    private javax.swing.JPanel conInci;
     private javax.swing.JButton consAsis;
     private javax.swing.JButton consEmp;
     private javax.swing.JButton consHor;
@@ -4170,6 +4614,12 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -4177,7 +4627,6 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
@@ -4195,9 +4644,14 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton rA_alta;
+    private javax.swing.JTextField rA_nombreA;
+    private javax.swing.JTextField rA_path;
     private javax.swing.JTextField rE_cPostal;
     private javax.swing.JTextField rE_calle;
     private javax.swing.JTextField rE_claveE;
@@ -4216,7 +4670,6 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JButton rE_submit;
     private javax.swing.JSpinner rH_eD;
     private javax.swing.JSpinner rH_eD1;
-    private javax.swing.JSpinner rH_eD2;
     private javax.swing.JSpinner rH_eD3;
     private javax.swing.JSpinner rH_eJ;
     private javax.swing.JSpinner rH_eJ1;
@@ -4239,7 +4692,6 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JTextField rH_idH;
     private javax.swing.JRadioButton rH_isD;
     private javax.swing.JRadioButton rH_isD1;
-    private javax.swing.JRadioButton rH_isD2;
     private javax.swing.JRadioButton rH_isD3;
     private javax.swing.JRadioButton rH_isJ;
     private javax.swing.JRadioButton rH_isJ1;
@@ -4262,7 +4714,6 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JButton rH_registrar;
     private javax.swing.JSpinner rH_sD;
     private javax.swing.JSpinner rH_sD1;
-    private javax.swing.JSpinner rH_sD2;
     private javax.swing.JSpinner rH_sD3;
     private javax.swing.JSpinner rH_sJ;
     private javax.swing.JSpinner rH_sJ1;
@@ -4282,6 +4733,7 @@ public class HOME extends javax.swing.JFrame {
     private javax.swing.JSpinner rH_sW;
     private javax.swing.JSpinner rH_sW1;
     private javax.swing.JSpinner rH_sW2;
+    private javax.swing.JPanel regAsis;
     private javax.swing.JButton regEmp;
     private javax.swing.JPanel regEmpleado;
     private javax.swing.JButton regHor;

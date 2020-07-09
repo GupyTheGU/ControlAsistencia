@@ -7,6 +7,8 @@ package controlasistencia;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -114,7 +116,8 @@ public class QuerysBD {
         hr.setDias(d,i);
         return hr;
     }
-
+    
+    
     String modificarEmpleado(Empleado emp) throws SQLException {
         String fin = "";
         conn.conectar();
@@ -146,6 +149,46 @@ public class QuerysBD {
                 rs = conn.consulta(stm);
             }
         }
+    }
+
+    void registrarAsistencia(Asistencia a) throws SQLException {
+        conn.conectar();
+        stm = "CALL sp_altaAsistencia("+a.idEmpleado+",'"+a.str_fecha+"','"+a.str_hora+"',"+a.tipo+","+a.incidencia+","+a.lector+");";
+        rs = conn.consulta(stm);
+    }
+    
+    modeloTabla consultarAsisFecha(String clave,String fecha) throws SQLException{
+        modeloTabla mt = new modeloTabla();
+        conn.conectar();
+        stm = "CALL sp_conAsistenciasFecha("+clave+",'"+fecha+"');";
+        rs = conn.consulta(stm);
+        while(rs.next()){
+            mt.add(new Asistencia(clave,rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+        }
+        return mt;
+    }
+    
+    void eliminarHorario(String idHorario) throws SQLException {
+        conn.conectar();
+        stm = "CALL sp_eliminarHorario('"+idHorario+"');";
+        rs = conn.consulta(stm);
+    }
+    
+    void eliminarEmpleado(String clave) throws SQLException {
+        conn.conectar();
+        stm = "CALL sp_eliminarEmpleado("+clave+");";
+        rs = conn.consulta(stm);
+    }
+
+    modeloTabla consultarIncidencias(String clave) throws SQLException {
+        modeloTabla mt = new modeloTabla();
+        conn.conectar();
+        stm = "CALL sp_conIncidencias("+clave+");";
+        rs = conn.consulta(stm);
+        while(rs.next()){
+            mt.add(new Asistencia(clave,rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+        }
+        return mt;
     }
     
 }
