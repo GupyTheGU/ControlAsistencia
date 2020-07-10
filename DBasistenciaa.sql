@@ -2,6 +2,12 @@ DROP DATABASE ControlAsistencia;
 CREATE DATABASE ControlAsistencia;
 USE ControlAsistencia;
 
+CREATE TABLE administrador(
+	usuario	VARCHAR(30) NOT NULL,
+	contra	VARCHAR(30) NOT NULL,
+	PRIMARY KEY(usuario,contra)
+);
+
 CREATE TABLE empleados(
   idEmp		INT UNSIGNED NOT NULL,
   idDatos	INT UNSIGNED NOT NULL,
@@ -128,6 +134,8 @@ INSERT INTO incidencias(idInci,descr) VALUES (3,"INASISTENCIA");
 
 INSERT INTO tipoinout(tipoES,descr)VALUES(1,"ENTRADA");
 INSERT INTO tipoinout(tipoES,descr)VALUES(2,"SALIDA");
+
+INSERT INTO administrador(usuario,contra)VALUES("admin","admin");
 #SELECT * FROM empleados INNER JOIN detalleEmpleado WHERE detalleEmpleado.idDatos = empleados.idDatos;
 ############################################################################################################################
 ## para resultados   0-no existe | -1-existe_ej_exito | -2-existe pero no se puede ejecutar
@@ -357,27 +365,18 @@ delimiter ;
 USE controlasistencia;
 CREATE VIEW getNumeroHorarios AS (SELECT COUNT(*) FROM horario);
 
+#drop procedure if exists sp_iniciaSesion;
+delimiter $$
+CREATE PROCEDURE sp_iniciaSesion (IN usr VARCHAR(30), IN passw VARCHAR(30))
+BEGIN
+		DECLARE existe INT DEFAULT 0;
+		SET existe = (SELECT COUNT(*) FROM administrador WHERE administrador.usuario=usr AND administrador.contra=passw);
+		SELECT existe;
+END$$
+delimiter ;
+
 CALL sp_registraHorario("Matutino 2A");
 CALL sp_modificaHorario("Matutino 2A", 1, "12:07", "15:24");
 CALL sp_modificaHorario("Matutino 2A", 3, "08:51", "13:24");
 CALL sp_modificaHorario("Matutino 2A", 5, "08:51", "13:24");
 #_____________________________________________________________________________view
-
-SELECT asistencias.FechaAsis,asistencias.horaReg,tipoinout.descr,incidencias.descr, asistencias.NoBiom FROM incidencias INNER JOIN  asistencias INNER JOIN tipoinout 
-			WHERE incidencias.idInci = asistencias.idInci AND tipoinout.tipoES = asistencias.tipoES AND asistencias.idEmp = 201409013 AND asistencias.idInci > 0;
-(SELECT COUNT(*) FROM asistencias WHERE idEmp=201409013 AND FechaAsis='2020-07-04' AND horaReg = "04:13:24" AND tipoES = 1 AND idInci = 2 AND NoBiom = 9);
-SELECT * FROM empleados;
-SELECT * FROM getNumeroHorarios;
-SELECT * FROM horario;
-SELECT * FROM jornada;
-DELETE  FROM jornada;
-select * FROM asistencias;
-SELECT * FROM tipoinout;
-CALL sp_getHorario("hola");
-CALL sp_registrarJornada(1,"04:23","04:23",@outJornada);
-CALL sp_modificaHorario("hola", 1, "04:28", "04:28")
-(select ifnull(empleados.idHorario,-10) from empleados WHERE idEmp = 201409013);
-SELECT idDatos FROM empleados WHERE empleados.idEmp = 201409013;
-CALL sp_consultaEmpleado(201409013);
-SELECT * FROM relhorariojornada INNER JOIN jornada WHERE relhorariojornada.idJornada = jornada.idJornada;
-SELECT * FROM empleados INNER JOIN detalleempleado WHERE empleados.idDatos = detalleempleado.idDatos;

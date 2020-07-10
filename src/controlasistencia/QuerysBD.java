@@ -190,5 +190,16 @@ public class QuerysBD {
         }
         return mt;
     }
+
+    String logIn(String usuario, String passw) throws SQLException {
+        String res = "";
+        conn.conectar();
+        stm = "CALL sp_iniciaSesion('"+usuario+"','"+passw+"');";
+        rs = conn.consulta(stm);
+        if(rs.next()){
+            res = rs.getString(1);
+        }
+        return res;
+    }
     
 }

@@ -24,7 +24,8 @@ public class Main {
         catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace ();
         }
-        new HOME().setVisible(true);
+        new InicioSesion().setVisible(true);
+        //new HOME().setVisible(true);
         //new RegistrarEmpleado().setVisible(true);
                
     }

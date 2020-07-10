@@ -3427,7 +3427,7 @@ public class HOME extends javax.swing.JFrame {
                 componentsEnableDisable(conHorario,false);
                 cH_editarHorario.setText("Editar");
                 JOptionPane optionPane = new JOptionPane();
-                    optionPane.showMessageDialog(null,"        NO existen horarios existentes        ", "    ERROR!!", JOptionPane.INFORMATION_MESSAGE);
+                    optionPane.showMessageDialog(null,"        No hay horarios existentes        ", "    ERROR!!", JOptionPane.INFORMATION_MESSAGE);
             }
             
         } catch (SQLException ex) {
