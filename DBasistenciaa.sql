@@ -136,7 +136,7 @@ INSERT INTO tipoinout(tipoES,descr)VALUES(1,"ENTRADA");
 INSERT INTO tipoinout(tipoES,descr)VALUES(2,"SALIDA");
 
 INSERT INTO administrador(usuario,contra)VALUES("admin","admin");
-#SELECT * FROM empleados INNER JOIN detalleEmpleado WHERE detalleEmpleado.idDatos = empleados.idDatos;
+
 ############################################################################################################################
 ## para resultados   0-no existe | -1-existe_ej_exito | -2-existe pero no se puede ejecutar
 
@@ -380,3 +380,23 @@ CALL sp_modificaHorario("Matutino 2A", 1, "12:07", "15:24");
 CALL sp_modificaHorario("Matutino 2A", 3, "08:51", "13:24");
 CALL sp_modificaHorario("Matutino 2A", 5, "08:51", "13:24");
 #_____________________________________________________________________________view
+
+SELECT asistencias.FechaAsis,asistencias.horaReg,tipoinout.descr,incidencias.descr, asistencias.NoBiom FROM incidencias INNER JOIN  asistencias INNER JOIN tipoinout 
+			WHERE incidencias.idInci = asistencias.idInci AND tipoinout.tipoES = asistencias.tipoES AND asistencias.idEmp = 201409013 AND asistencias.idInci > 0;
+(SELECT COUNT(*) FROM asistencias WHERE idEmp=201409013 AND FechaAsis='2020-07-04' AND horaReg = "04:13:24" AND tipoES = 1 AND idInci = 2 AND NoBiom = 9);
+SELECT * FROM empleados;
+SELECT * FROM getNumeroHorarios;
+SELECT * FROM horario;
+SELECT * FROM jornada;
+DELETE  FROM jornada;
+select * FROM asistencias;
+SELECT * FROM tipoinout;
+CALL sp_getHorario("hola");
+CALL sp_registrarJornada(1,"04:23","04:23",@outJornada);
+CALL sp_modificaHorario("hola", 1, "04:28", "04:28")
+(select ifnull(empleados.idHorario,-10) from empleados WHERE idEmp = 201409013);
+SELECT idDatos FROM empleados WHERE empleados.idEmp = 201409013;
+CALL sp_consultaEmpleado(201409013);
+SELECT * FROM relhorariojornada INNER JOIN jornada WHERE relhorariojornada.idJornada = jornada.idJornada;
+SELECT * FROM empleados INNER JOIN detalleempleado WHERE empleados.idDatos = detalleempleado.idDatos;
+call sp_iniciaSesion("adasd","asd");

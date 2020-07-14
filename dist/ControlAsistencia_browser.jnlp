@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ControlAsistencia.jar" size="6389421" download="eager" />
+    <jar href="ControlAsistencia.jar" size="6389424" download="eager" />
     <jar href="lib\jcalendar-1.4.jar" size="165052" download="eager" />
     <jar href="lib\joda-time-2.10.6.jar" size="643778" download="eager" />
     <jar href="lib\material-ui-swing-1.1.1_pre-release_6.1-jar-with-dependencies.jar" size="4617067" download="eager" />
