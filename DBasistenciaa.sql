@@ -276,7 +276,8 @@ begin
 end$$
 delimiter ;
 
-#drop procedure if exists sp_getHorario;
+DROP PROCEDURE IF EXISTS sp_getHorario;
+															    
 delimiter $$
 CREATE PROCEDURE sp_getHorario(IN nombre VARCHAR(30))
 BEGIN
